@@ -33,8 +33,8 @@ void sort_main(){set_servo_position(SERV_SORT,600);msleep(200);}
 void sort_sec(){set_servo_position(SERV_SORT,1120);}
 //void sort_mid(){set_servo_position(SERV_SORT,1090);msleep(200);}
 
-void grab_poms(){set_servo_position(SERV_GRAB,1436);msleep(200);set_servo_position(SERV_GRAB,1483);}
-void release_poms(){set_servo_position(SERV_GRAB,2047);msleep(200);}
+void grab_poms(){set_servo_position(SERV_GRAB,800);msleep(200);set_servo_position(SERV_GRAB,800);}
+void release_poms(){set_servo_position(SERV_GRAB,1300);msleep(200);}
 void bump_poms(){set_servo_position(SERV_GRAB,1510);msleep(10);set_servo_position(SERV_GRAB,1410);}
 
 void sweep_bump(){set_servo_position(SERV_SWEEP,1450);msleep(40);}
@@ -315,6 +315,7 @@ void cam_sort(int mainColor, int size, int discrepancy, int time, int jamDist)
 #define s_PILEALT 7
 #define s_CROSSBACK 8
 #define s_SHORT 9
+#define s_REALIGN 10
 
 #define s_END 0
 
@@ -322,11 +323,6 @@ struct menuitem menu[]=
 {
 	{s_START,"start"},
 	{s_SHORT,"short"},
-	{s_CROSSFIELD,"crossfield"},
-	{s_PILEALT,"Pilealt"},
-	{s_CROSSBACK,"Crossback"},
-	{s_PILE1,"Pile 1"},
-	{s_PILE2,"Pile 2"},
 	{s_SQUAREUP,"squareup"},
 	{s_SWEEP,"sweep"},
 	{s_FORWARD,"forward"},
@@ -372,7 +368,7 @@ int main()
 	camera_open(CAM_RES);
 	multicamupdate(5);
 	sweep_default();
-	set_servo_position(SERV_GRAB,1049);
+	set_servo_position(SERV_GRAB,600);
 	Get_Mode();
 	while(currstate!=s_END)
 	{
@@ -426,7 +422,7 @@ int main()
 			//set_servo_position(SERV_GRAB,1250);
 			//msleep(300);
 			//release_poms();
-			left(7,0);
+			left(5,0);
 			forward(34);
 			grab_poms();
 			right(5.5,0);
@@ -467,9 +463,9 @@ int main()
 			cam_sort(0,50,25,12,2);
 			grab_poms();
 			backward(23);
-			//cam_sort(0,50,25,10,2);
-			//grab_poms();
-			//backward(20);
+			cam_sort(0,50,25,10,2);
+			grab_poms();
+			backward(23);
 			
 			/*
 			forward(2);
@@ -500,7 +496,18 @@ int main()
 			forward(10);
 			left(90,0);
 			backward(30);
-			cam_sort(0,50,25,12,2);
+			cam_sort(0,50,25,16,2);
+			left(10,0);
+			backward(35);
+			cam_sort(0,50,25,16,2);
+			next(s_REALIGN);
+		}
+		state(s_REALIGN) //re-aligns the link with the initial starting position
+		{
+			backward(40);
+			forward(20);
+			right(70,0);
+			backward(20);
 			next(s_END);
 		}
 		state(s_PILE1)
