@@ -28,6 +28,8 @@ Value:
 #define MOT_PICK 3
 #define SORT_SPEED 70
 
+#define RETURNTEST 1
+
 //Position functions
 void sort_main(){set_servo_position(SERV_SORT,600);msleep(200);}
 void sort_sec(){set_servo_position(SERV_SORT,1120);}
@@ -316,6 +318,7 @@ void cam_sort(int mainColor, int size, int discrepancy, int time, int jamDist)
 #define s_CROSSBACK 8
 #define s_SHORT 9
 #define s_REALIGN 10
+#define s_RETURN 11
 
 #define s_END 0
 
@@ -413,19 +416,21 @@ int main()
 			light_start(0);
 			shut_down_in(119);
 			release_poms();
-			motor(MOT_LEFT,-70);
-			motor(MOT_RIGHT,-70);
+			//motor(MOT_LEFT,-70);
+			//motor(MOT_RIGHT,-70);
 			msleep(1000);
 			//motor(MOT_RIGHT,0);
 			//motor(MOT_LEFT,0);
-			forward(20);
+			forward(15);
 			//set_servo_position(SERV_GRAB,1250);
 			//msleep(300);
 			//release_poms();
-			left(5,0);
-			forward(34);
+			
+			left(2,0);
+			forward(21);
 			grab_poms();
-			right(5.5,0);
+			right(6,0);
+			
 			//grab_poms();
 			//printf("end of Crossfield");
 			if(alt==0)
@@ -492,23 +497,36 @@ int main()
 		}
 		state(s_CROSSBACK)
 		{
-			backward(60);
-			forward(10);
-			left(90,0);
-			backward(30);
-			cam_sort(0,50,25,16,2);
-			left(10,0);
-			backward(35);
-			cam_sort(0,50,25,16,2);
+			backward(70);
+			forward(18);
+			left(80,0);
+			backward(40);
+			cam_sort(0,50,25,15,2);
+			grab_poms();
+			backward(45);
+			release_poms();
+			cam_sort(0,50,25,15,2);
 			next(s_REALIGN);
 		}
 		state(s_REALIGN) //re-aligns the link with the initial starting position
 		{
-			backward(40);
-			forward(20);
-			right(70,0);
-			backward(20);
+			backward(50);
+			forward(30);
+			right(60,0);
+			backward(30);
+			
+			#ifdef RETURNTEST
+			next(s_RETURN);
+			#endif
+			
+			#ifndef RETURNTEST
 			next(s_END);
+			#endif
+		}
+		state(s_RETURN)
+		{
+			forward(10); //return to setup position
+			forward(60); //
 		}
 		state(s_PILE1)
 		{
