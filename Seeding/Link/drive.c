@@ -81,7 +81,13 @@ void driveForward(float distance, float speed) {
 	clear_motor_position_counter(MOTOR_RIGHT);
 	motor(MOTOR_LEFT, speed*LEFT_FULL_POWER*DrFLC);
 	motor(MOTOR_RIGHT, speed*RIGHT_FULL_POWER*DrFRC);
-	while(get_motor_position_counter(MOTOR_LEFT)< distance*CMTOBEMF  && get_motor_position_counter(MOTOR_RIGHT) < distance*CMTOBEMF) {}
+	int i = 0;
+	while(get_motor_position_counter(MOTOR_LEFT)< distance*CMTOBEMF  && get_motor_position_counter(MOTOR_RIGHT) < distance*CMTOBEMF) {
+      if (++i > 1000) {
+	    printf("ET sensor: %d\n", analog_et(0));
+		i = 0;
+	  }
+	}
 	printf("%d\n", get_motor_position_counter(MOTOR_LEFT));
 	ao();
 }
@@ -244,3 +250,34 @@ void squareUp(float speed,float time) {
 	msleep(time*1000);
 	ao();
 }
+
+void driveUntilET(float speed) {
+//	printf("Initial ET sensor: %d\n", analog_et(0));
+	while (analog_et(0) > 320) {
+//	while (1) {
+		motor(MOTOR_LEFT, speed*LEFT_FULL_POWER*DrFLC);
+		motor(MOTOR_RIGHT, speed*RIGHT_FULL_POWER*DrFRC);
+		printf("ET sensor: %d\n", analog_et(0));
+	}
+	ao();
+}
+
+void driveUntilTH(float speed) {
+	while (analog10(7) > 420) {
+		motor(MOTOR_LEFT, speed*LEFT_FULL_POWER*DrFLC);
+		motor(MOTOR_RIGHT, speed*RIGHT_FULL_POWER*DrFRC);
+	}
+	ao();
+}
+
+void driveUntilET2(float speed) {
+//	printf("Initial ET sensor: %d\n", analog_et(0));
+	while (analog_et(0) < 320) {
+//	while (1) {
+		motor(MOTOR_LEFT, speed*LEFT_FULL_POWER*DrFLC);
+		motor(MOTOR_RIGHT, speed*RIGHT_FULL_POWER*DrFRC);
+		printf("ET sensor: %d\n", analog_et(0));
+	}
+	ao();
+}
+

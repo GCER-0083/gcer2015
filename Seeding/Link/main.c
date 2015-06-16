@@ -1,12 +1,11 @@
 #include "template.h"
 
 int main() {
-	wait_for_light(0);
+	//wait_for_light(0);
 	enableAllServos();
 	LINK_main();
 	/*enableAllServos();
 	openClaw();
-	
 	clawCloseBack(30,1);*/
 }
 
@@ -38,26 +37,25 @@ void LINK_main() {
 	//get into position to alley
 	raiseClaw();
 	driveBackward(3, 1);
-	turnLeft(-105);
+	turnLeft(-95);
 	squareUp(1,3);
 	msleep(200);
 	
 	raiseClaw();
-	driveForward(5, 1);
-	turnRight(90);
+	turnRight(88);
 	closeClaw();
-	driveForward(44, 1);
-	turnRight(106); //bump turn
-	driveForward(28,1);
+	driveUntilET(1);
+	turnRight(98); //bump turn
+	driveUntilET2(1);
+	driveUntilET(1);
 	turnRight(95); //bumpy turn
 	lowerClaw();
-	turnRight(15);
-	turnLeft(4);
+
 	
 	//drive down first alley for tribbles
 	openClaw();
-	driveForward(95, 1);
-	clawCloseBack(4,1);
+	driveUntilTH(1);
+	clawCloseBack(2,1);
 	//closeClaw();
 	raiseClaw();
 	driveBackward(5,1);
@@ -65,7 +63,7 @@ void LINK_main() {
 	
 	//turn around down other alley
 	raiseClaw();
-	turnRight(100);//
+	turnRight(100);
 	squareUp(1, 2);
 	turnLeft(-30);
 	squareUp(1, 2);
@@ -77,15 +75,14 @@ void LINK_main() {
 	lowerClaw();
 	openClaw();
 	
-	veerForward(43,1);
+	veerForward(40,1);
 	closeClaw();
 	raiseClaw();
-	driveForward(35,1);
+	driveForward(10,1);
 	lowerClaw();
 	openClaw();
-	driveForward(110, 1);
-	clawCloseBack(4,1);
-	//closeClaw();
+	driveUntilTH(1);
+	clawCloseBack(2,1);
 	raiseClaw();
 	msleep(1000);
 	driveBackward(5,1);
@@ -97,12 +94,7 @@ void LINK_main() {
 	turnLeft(-30);
 	msleep(500);
 	turnRight(100);
-	//lowerClaw();
-	//openClaw();
-	driveForward(42,1);
-	//closeClaw();
-	//raiseClaw();
-	driveForward(30, 1);
+	driveUntilET(1);
 	turnRight(85);
 	driveForward(25,1);
 	turnLeft(80);

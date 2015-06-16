@@ -7,10 +7,10 @@
 #define RIGHT_FULL_POWER 100
 #define SERVO_OPEN_CLOSE 1
 #define SERVO_UP_DOWN 3
-#define CLAW_OPEN CLAW_CLOSED+950
-#define CLAW_DOWN 900
+#define CLAW_OPEN CLAW_CLOSED+520
+#define CLAW_DOWN 950
 #define CLAW_OPEN_READY CLAW_CLOSED+600
-#define CLAW_UP_READY 350
+#define CLAW_UP_READY 530
 #define LS_LEFT 1
 #define LS_RIGHT 0
 #define TAPE_VALUE 880
@@ -19,13 +19,13 @@
 
 //tuning constants
 #define DrFLC 100/LEFT_FULL_POWER
-#define DrFRC 91/RIGHT_FULL_POWER
+#define DrFRC 88/RIGHT_FULL_POWER
 #define veerFRC 96
 #define DrBRC 94/RIGHT_FULL_POWER
 #define DrBLC 100/LEFT_FULL_POWER
 #define Rt 1 
 #define Lt 1
-#define CLAW_CLOSED 0
+#define CLAW_CLOSED 110
 #define CLAW_UP 77
 
 //tune this value to make driving as accurate as possible
@@ -48,6 +48,9 @@ void turnRight(float degrees/*, float radius*/);
 void turnLeft(float degrees/*, float radius*/);
 void squareUp(float speed,float time);
 void veerForward(float distance, float speed);
+void driveUntilET(float speed);
+void driveUntilET2(float speed);
+void driveUntilTH(float speed);
 
 //main
 
