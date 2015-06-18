@@ -63,28 +63,37 @@ void arm_lift(int time)
 }
 int main()
 {
+	create_connect();
 	windup();
 	enable_servos();
 	claw_open();
 	arm_lift(500);
 	msleep(2000);
+	create_left(25,0,100);
+	create_block();
 	ao();
 	motor(MOT_ARM,-10);
 	msleep(500);
 	claw_close();
 	ao();
 	motor(MOT_CLAW,-30);
-	msleep(1000);
+	msleep(1500);
 	motor(MOT_CLAW,0);
 	ao();
 	arm_lift(5000);
 	msleep(5000);
 	//windup();
-	/*create_left(56,0,500);
+	create_left(17,0,200);
 	create_block();
 	create_backward(700,200);
 	create_block();
 	create_backward(125,100);
-	create_block();*/
-	
+	create_block();
+	motor(MOT_ARM,-10);
+	motor(MOT_CLAW,-10);
+	msleep(1000);
+	claw_open();
+	ao();
+	motor(MOT_ARM,20);
+	msleep(2000);
 }
