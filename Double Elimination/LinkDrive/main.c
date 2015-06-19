@@ -33,8 +33,8 @@ void sort_main(){set_servo_position(SERV_SORT,600);msleep(200);}
 void sort_sec(){set_servo_position(SERV_SORT,1120);}
 //void sort_mid(){set_servo_position(SERV_SORT,1090);msleep(200);}
 
-void grab_poms(){set_servo_position(SERV_GRAB,800);msleep(200);set_servo_position(SERV_GRAB,800);}
-void release_poms(){set_servo_position(SERV_GRAB,1300);msleep(200);}
+void grab_poms(){set_servo_position(SERV_GRAB,1050);msleep(200);set_servo_position(SERV_GRAB,800);}
+void release_poms(){set_servo_position(SERV_GRAB,1350);msleep(200);}
 void bump_poms(){set_servo_position(SERV_GRAB,1510);msleep(10);set_servo_position(SERV_GRAB,1410);}
 
 void sweep_bump(){set_servo_position(SERV_SWEEP,1450);msleep(40);}
@@ -368,7 +368,7 @@ int main()
 	camera_open(CAM_RES);
 	multicamupdate(5);
 	sweep_default();
-	set_servo_position(SERV_GRAB,600);
+	set_servo_position(SERV_GRAB,700);
 	Get_Mode();
 	while(currstate!=s_END)
 	{

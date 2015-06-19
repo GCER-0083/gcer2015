@@ -17,7 +17,7 @@ void windup()
 	int tightened_arm = 0;
 	
 	motor(MOT_ARM,30);
-	motor(MOT_CLAW,30);
+	motor(MOT_CLAW,20);
 	
 	int counter_arm = gmpc(MOT_ARM);
 	int counter_claw = gmpc(MOT_CLAW);
@@ -54,6 +54,12 @@ void claw_close()
 	set_servo_position(SERV_GRAB,300);
 	msleep(200);
 }
+//self explanatory
+void claw_foamboard()
+{
+	set_servo_position(SERV_GRAB,1240);
+	msleep(200);
+}
 //time is the time the arm lifts in milliseconds. holds arm in place.
 void arm_lift(int time)
 {
@@ -76,24 +82,30 @@ int main()
 	msleep(500);
 	claw_close();
 	ao();
-	motor(MOT_CLAW,-30);
+	motor(MOT_ARM,100);
+	motor(MOT_CLAW,-25);
 	msleep(1500);
 	motor(MOT_CLAW,0);
 	ao();
-	arm_lift(5000);
-	msleep(5000);
+	arm_lift(2500);
 	//windup();
-	create_left(17,0,200);
+	create_left(40,0,200);
 	create_block();
-	create_backward(700,200);
+	create_drive_direct_right(-200,-150,34);
 	create_block();
-	create_backward(125,100);
+	//create_right(1,0,200);
 	create_block();
-	motor(MOT_ARM,-10);
+	create_backward(350,200);
+	create_block();
+	create_backward(60,100);
+	create_block();
+	claw_open();
+	create_forward(10,100);
 	motor(MOT_CLAW,-10);
 	msleep(1000);
-	claw_open();
 	ao();
 	motor(MOT_ARM,20);
+	//claw_open();
+	claw_foamboard();
 	msleep(2000);
 }
