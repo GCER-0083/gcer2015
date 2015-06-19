@@ -11,9 +11,8 @@ void playTunes() {
 void pingPongHigh() {
 	//raiseLowerArm(ARM_HIGH - 200, 0.5);		//drives with raised arm
 	//createDrive(100, 26);	
-	armMove(ARM_HIGH, 1000, 23.5, 320);
-	raiseLowerArm(ARM_HIGH, 0.5);
-	playCoin();
+	armMove(ARM_HIGH, 1000, 22.5, 320);
+	//playCoin();
 //	raiseLowerArm(ARM_HIGH, 1);					//gets ping pong ball
 	msleep(500);
 	//createDriveBack(100, 8);
@@ -76,7 +75,7 @@ void pingPongHigh2() {
 	armMove(ARM_HIGH, 1000, 20, 350);		//gets ping pong	
 	raiseLowerArm(ARM_HIGH, 500);		//gets ping pong
 	playCoin();
-	createDriveBack(100, 15);
+	createDriveBack(100, 13);
 }
 
 void pingPongMedium2() {
@@ -93,11 +92,12 @@ void scrape() {
 	raiseLowerArm(ARM_HIGH+1, 3000);
 	msleep(2000);
 	createTurnLeft(-35);
-	createTurnRight(-35);
+	createTurnRight(-25);
 	driveTouch(-200);
 	createDrive(100, 6);
 	createScrapeBasket();
 	createSquareUp(100, 5);
+	createTurnLeft(-5);
 }
 
 void squareAndSound() {
