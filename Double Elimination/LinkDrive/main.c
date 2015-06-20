@@ -35,8 +35,8 @@ void sort_main(){set_servo_position(SERV_SORT,600);msleep(200);}
 void sort_sec(){set_servo_position(SERV_SORT,1120);}
 //void sort_mid(){set_servo_position(SERV_SORT,1090);msleep(200);}
 
-void grab_poms(){set_servo_position(SERV_GRAB,1050);msleep(200);set_servo_position(SERV_GRAB,800);}
-void release_poms(){set_servo_position(SERV_GRAB,1350);msleep(200);}
+void grab_poms(){set_servo_position(SERV_GRAB,900);msleep(200);set_servo_position(SERV_GRAB,700);}
+void release_poms(){set_servo_position(SERV_GRAB,1050);msleep(200);}
 void bump_poms(){set_servo_position(SERV_GRAB,1510);msleep(10);set_servo_position(SERV_GRAB,1410);}
 
 void sweep_bump(){set_servo_position(SERV_SWEEP,1450);msleep(40);}
@@ -371,7 +371,7 @@ int main()
 	camera_open(CAM_RES);
 	multicamupdate(5);
 	sweep_default();
-	set_servo_position(SERV_GRAB,700);
+	set_servo_position(SERV_GRAB,369);
 	Get_Mode();
 	while(currstate!=s_END)
 	{
@@ -524,9 +524,41 @@ int main()
 			#endif
 		}
 		state(s_RETURN)
-		{
-			forward(10); //return to setup position
-			forward(60); //
+		{	
+			forward(190);
+			
+			//            red poms go to other side
+			sweep_out();
+			msleep(150);
+			sweep_default();
+			msleep(100);
+			sweep_out();
+			msleep(100);
+			sweep_default();
+			msleep(100);
+			sweep_out();
+			msleep(100);
+			sweep_default();
+			
+			/*
+			left(90,0);
+			backward(40);
+			forward(30);
+			left(90,0); 
+			backward(40); //square up with wall to face 2nd pom pile
+			forward(40);
+			release_poms();
+			forward(20);
+			backward(50); //grab 2nd pom pile and square up with wall
+			forward(20);
+			left(90,0);
+			backward(30);
+			cam_sort(1,50,25,12,2);
+			backward(40);
+			cam_sort(1,50,25,12,2);
+			backward(40);
+			*/
+			next(s_END);
 		}
 		state(s_PILE1)
 		{
