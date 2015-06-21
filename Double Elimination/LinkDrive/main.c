@@ -35,8 +35,8 @@ void sort_main(){set_servo_position(SERV_SORT,600);msleep(200);}
 void sort_sec(){set_servo_position(SERV_SORT,1120);}
 //void sort_mid(){set_servo_position(SERV_SORT,1090);msleep(200);}
 
-void grab_poms(){set_servo_position(SERV_GRAB,900);msleep(200);set_servo_position(SERV_GRAB,700);}
-void release_poms(){set_servo_position(SERV_GRAB,1050);msleep(200);}
+void grab_poms(){set_servo_position(SERV_GRAB,1000);msleep(200);set_servo_position(SERV_GRAB,850);}
+void release_poms(){set_servo_position(SERV_GRAB,1300);msleep(200);}
 void bump_poms(){set_servo_position(SERV_GRAB,1510);msleep(10);set_servo_position(SERV_GRAB,1410);}
 
 void sweep_bump(){set_servo_position(SERV_SWEEP,1450);msleep(40);}
@@ -331,6 +331,7 @@ struct menuitem menu[]=
 	{s_FORWARD,"forward"},
 	{s_DUMPPOMS,"dump"},
 	{s_RAWSORT,"sorting"},
+	{s_RETURN,"return"},
 	{s_END,"END"}
 	
 };
@@ -371,7 +372,7 @@ int main()
 	camera_open(CAM_RES);
 	multicamupdate(5);
 	sweep_default();
-	set_servo_position(SERV_GRAB,369);
+	set_servo_position(SERV_GRAB,600);
 	Get_Mode();
 	while(currstate!=s_END)
 	{
@@ -426,7 +427,7 @@ int main()
 			//msleep(300);
 			//release_poms();
 			
-			left(2,0);
+			left(8,0);
 			forward(21);
 			grab_poms();
 			right(6,0);
@@ -501,11 +502,11 @@ int main()
 			forward(18);
 			left(80,0);
 			backward(40);
-			cam_sort(0,50,25,15,2);
+			cam_sort(0,50,25,14,2);
 			grab_poms();
 			backward(45);
 			release_poms();
-			cam_sort(0,50,25,15,2);
+			cam_sort(0,50,25,14,2);
 			next(s_REALIGN);
 		}
 		state(s_REALIGN) //re-aligns the link with the initial starting position
@@ -525,7 +526,14 @@ int main()
 		}
 		state(s_RETURN)
 		{	
-			forward(190);
+			release_poms();
+			forward(100); //return to other side of field
+			left(10,0);
+			forward(70);
+			right(10,0);
+			forward(30);
+			grab_poms();
+			right(90,0);
 			
 			//            red poms go to other side
 			sweep_out();
@@ -539,6 +547,7 @@ int main()
 			sweep_out();
 			msleep(100);
 			sweep_default();
+			msleep(100);
 			
 			/*
 			left(90,0);
