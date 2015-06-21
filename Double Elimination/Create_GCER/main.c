@@ -84,15 +84,15 @@ int main()
 	ao();
 	motor(MOT_ARM,100);
 	motor(MOT_CLAW,-20);
-	msleep(1500);
+	msleep(1250);
 	motor(MOT_CLAW,0);
 	ao();
 	//motor(MOT_CLAW,-10);
-	arm_lift(4500);
+	arm_lift(4750);
 	//windup();
 	create_left(40,0,200);
 	create_block();
-	create_drive_direct_right(-200,-150,28);
+	create_drive_direct_right(-200,-150,30);
 	create_block();
 	//create_right(1,0,200);
 	create_block();
