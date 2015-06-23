@@ -1,0 +1,4 @@
+[General]
+AUTO_COMPILE_DEPS=true
+COMPILE_LIB=false
+LINKS=/Users/andywang/Documents/BotBall/bb2015/Regionals 2015/LINK/Seeding/drive.c, /Users/andywang/Documents/BotBall/bb2015/Regionals 2015/LINK/Seeding/drive.h, /Users/andywang/Documents/BotBall/bb2015/Regionals 2015/LINK/Seeding/main.c, /Users/andywang/Documents/BotBall/bb2015/Regionals 2015/LINK/Seeding/template.h
