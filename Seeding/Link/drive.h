@@ -1,6 +1,6 @@
 //define things for drive.c here
 
-#define WHEEL_DIAMETER 4.4
+#define WHEEL_DIAMETER 5.8
 #define MOTOR_LEFT 1
 #define MOTOR_RIGHT 0
 #define LEFT_FULL_POWER 97
@@ -8,7 +8,7 @@
 #define SERVO_OPEN_CLOSE 1
 #define SERVO_UP_DOWN 3
 #define CLAW_OPEN CLAW_CLOSED+520
-#define CLAW_DOWN 950
+#define CLAW_DOWN 900
 #define CLAW_OPEN_READY CLAW_CLOSED+600
 #define CLAW_UP_READY 530
 #define LS_LEFT 1
@@ -19,7 +19,7 @@
 
 //tuning constants
 #define DrFLC 100/LEFT_FULL_POWER
-#define DrFRC 88/RIGHT_FULL_POWER
+#define DrFRC 85/RIGHT_FULL_POWER
 #define veerFRC 96
 #define DrBRC 94/RIGHT_FULL_POWER
 #define DrBLC 100/LEFT_FULL_POWER
@@ -51,6 +51,7 @@ void veerForward(float distance, float speed);
 void driveUntilET(float speed);
 void driveUntilET2(float speed);
 void driveUntilTH(float speed);
+void driveUntilETFollow(float speed);
 
 //main
 

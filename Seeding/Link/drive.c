@@ -262,6 +262,26 @@ void driveUntilET(float speed) {
 	ao();
 }
 
+void driveUntilETFollow(float speed) {
+//	printf("Initial ET sensor: %d\n", analog_et(0));
+	while (analog_et(0) > 270) {
+	//while (1) {
+		if ( analog_et(0) <= 610 && analog_et(0) >= 520) {
+			motor(MOTOR_LEFT, speed*LEFT_FULL_POWER*DrFLC);
+			motor(MOTOR_RIGHT, speed*RIGHT_FULL_POWER*DrFRC);
+		}
+		else if (analog_et(0) > 610) {
+			motor(MOTOR_LEFT, speed*LEFT_FULL_POWER*DrFLC-20);
+			motor(MOTOR_RIGHT, speed*RIGHT_FULL_POWER*DrFRC);
+		}
+		else {
+			motor(MOTOR_LEFT, speed*LEFT_FULL_POWER*DrFLC);
+			motor(MOTOR_RIGHT, speed*RIGHT_FULL_POWER*DrFRC-40);
+		}
+	}
+	ao();
+}
+
 void driveUntilTH(float speed) {
 	while (analog10(7) > 420) {
 		motor(MOTOR_LEFT, speed*LEFT_FULL_POWER*DrFLC);
