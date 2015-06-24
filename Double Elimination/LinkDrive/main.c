@@ -35,8 +35,8 @@ void sort_main(){set_servo_position(SERV_SORT,600);msleep(200);}
 void sort_sec(){set_servo_position(SERV_SORT,1120);}
 //void sort_mid(){set_servo_position(SERV_SORT,1090);msleep(200);}
 
-void grab_poms(){set_servo_position(SERV_GRAB,1000);msleep(200);set_servo_position(SERV_GRAB,850);}
-void release_poms(){set_servo_position(SERV_GRAB,1300);msleep(200);}
+void grab_poms(){set_servo_position(SERV_GRAB,1200);msleep(200);set_servo_position(SERV_GRAB,1100);}
+void release_poms(){set_servo_position(SERV_GRAB,1550);msleep(200);}
 void bump_poms(){set_servo_position(SERV_GRAB,1510);msleep(10);set_servo_position(SERV_GRAB,1410);}
 
 void sweep_bump(){set_servo_position(SERV_SWEEP,1450);msleep(40);}
@@ -319,6 +319,7 @@ void cam_sort(int mainColor, int size, int discrepancy, int time, int jamDist)
 #define s_SHORT 9
 #define s_REALIGN 10
 #define s_RETURN 11
+#define s_RETURNSTART 12
 
 #define s_END 0
 
@@ -372,7 +373,7 @@ int main()
 	camera_open(CAM_RES);
 	multicamupdate(5);
 	sweep_default();
-	set_servo_position(SERV_GRAB,600);
+	set_servo_position(SERV_GRAB,800);
 	Get_Mode();
 	while(currstate!=s_END)
 	{
@@ -428,9 +429,9 @@ int main()
 			//release_poms();
 			
 			left(8,0);
-			forward(21);
+			forward(25);
 			grab_poms();
-			right(6,0);
+			right(8,0);
 			
 			//grab_poms();
 			//printf("end of Crossfield");
@@ -461,7 +462,7 @@ int main()
 		{
 			left(200,ks/2);
 			motor(MOT_PICK,-70);
-			backward(43);
+			backward(45);
 			forward(5);
 			backward(7);	
 			//motor(MOT_PICK,-SORT_SPEED);
@@ -502,37 +503,31 @@ int main()
 			forward(18);
 			left(80,0);
 			backward(40);
-			cam_sort(0,50,25,14,2);
+			cam_sort(0,50,25,20,2);
 			grab_poms();
-			backward(45);
+			backward(35);
 			release_poms();
-			cam_sort(0,50,25,14,2);
+			cam_sort(0,50,25,20,2);
+			grab_poms();
 			next(s_REALIGN);
 		}
 		state(s_REALIGN) //re-aligns the link with the initial starting position
 		{
 			backward(50);
 			forward(30);
-			right(60,0);
+			right(180,0);
 			backward(30);
-			
-			#ifdef RETURNTEST
-			next(s_RETURN);
-			#endif
-			
-			#ifndef RETURNTEST
 			next(s_END);
-			#endif
 		}
 		state(s_RETURN)
 		{	
-			release_poms();
-			forward(100); //return to other side of field
-			left(10,0);
-			forward(70);
-			right(10,0);
 			forward(30);
+			right(90,0);
+			backward(40);
+			release_poms();
+			forward(120); //return to other side of field
 			grab_poms();
+			forward(60);
 			right(90,0);
 			
 			//            red poms go to other side
@@ -549,26 +544,41 @@ int main()
 			sweep_default();
 			msleep(100);
 			
-			/*
-			left(90,0);
+			cam_sort(1,50,25,16,2);
 			backward(40);
-			forward(30);
-			left(90,0); 
-			backward(40); //square up with wall to face 2nd pom pile
-			forward(40);
-			release_poms();
-			forward(20);
-			backward(50); //grab 2nd pom pile and square up with wall
-			forward(20);
-			left(90,0);
+			cam_sort(1,50,25,16,2);
+			backward(40);
+			#ifdef RETURNTEST
+			next(s_END);
+			#endif
+			
+			#ifndef RETURNTEST
+			next(s_RETURNSTART)
+			#endif
+		}
+		#ifdef RETURNTEST
+		state(s_RETURNSTART)
+		{
+			forward(50);
+			right(90,0);
 			backward(30);
-			cam_sort(1,50,25,12,2);
-			backward(40);
-			cam_sort(1,50,25,12,2);
-			backward(40);
-			*/
+			forward(160);
+			
+			sweep_out();
+			msleep(150);
+			sweep_default();
+			msleep(100);
+			sweep_out();
+			msleep(100);
+			sweep_default();
+			msleep(100);
+			sweep_out();
+			msleep(100);
+			sweep_default();
+			msleep(100);
 			next(s_END);
 		}
+		#endif
 		state(s_PILE1)
 		{
 			left(-88,ks/2);
