@@ -86,11 +86,10 @@ int main()
 	arm_lift(1000);
 	motor(MOT_ARM,100);
 	motor(MOT_CLAW,-20);
-	msleep(1250);
+	msleep(750);
 	motor(MOT_CLAW,0);
-	ao();
 	//motor(MOT_CLAW,-10);
-	arm_lift(3750);
+	arm_lift(4500);
 	//windup();
 	create_left(40,0,200);
 	create_block();
