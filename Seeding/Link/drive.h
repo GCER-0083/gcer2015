@@ -56,3 +56,7 @@ void driveUntilETFollow(float speed);
 //main
 
 void LINK_main();
+
+//Slow servo Notes: servo position must have been set prior in the program before running this command
+void moveServo(int destination, int time, int port);
+

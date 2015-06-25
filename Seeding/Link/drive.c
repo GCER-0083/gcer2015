@@ -301,3 +301,20 @@ void driveUntilET2(float speed) {
 	ao();
 }
 
+void moveServo(int destination, int time, int port) {
+	int increment;
+	int initAngle = get_servo_position(port);
+	int angle = initAngle;
+	if(angle < destination) {
+		increment = 1;
+	} else {
+		increment = -1;
+	}	
+	
+	while(abs(angle - destination) > 5) {
+		printf("%d\n", angle);
+		angle += increment;
+		set_servo_position(port, angle);
+		msleep(time / abs(destination - initAngle));
+	}
+}
