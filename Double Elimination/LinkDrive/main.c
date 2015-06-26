@@ -544,39 +544,26 @@ int main()
 			sweep_default();
 			msleep(100);
 			
-			cam_sort(1,50,25,16,2);
+			cam_sort(1,50,25,20,2);
 			backward(40);
-			cam_sort(1,50,25,16,2);
+			cam_sort(1,50,25,20,2);
 			backward(40);
-			#ifdef RETURNTEST
+			#ifndef RETURNTEST
 			next(s_END);
 			#endif
 			
-			#ifndef RETURNTEST
+			#ifdef RETURNTEST
 			next(s_RETURNSTART)
 			#endif
 		}
 		#ifdef RETURNTEST
-		state(s_RETURNSTART)
+		state(s_RETURNSTART) //return to starting field, dump poms
 		{
 			forward(50);
 			right(90,0);
 			backward(30);
 			forward(160);
-			
-			sweep_out();
-			msleep(150);
-			sweep_default();
-			msleep(100);
-			sweep_out();
-			msleep(100);
-			sweep_default();
-			msleep(100);
-			sweep_out();
-			msleep(100);
-			sweep_default();
-			msleep(100);
-			next(s_END);
+			next(s_DUMPPOMS);
 		}
 		#endif
 		state(s_PILE1)
