@@ -35,8 +35,8 @@ void sort_main(){set_servo_position(SERV_SORT,600);msleep(200);}
 void sort_sec(){set_servo_position(SERV_SORT,1120);}
 //void sort_mid(){set_servo_position(SERV_SORT,1090);msleep(200);}
 
-void grab_poms(){set_servo_position(SERV_GRAB,1200);msleep(200);set_servo_position(SERV_GRAB,1100);}
-void release_poms(){set_servo_position(SERV_GRAB,1550);msleep(200);}
+void grab_poms(){set_servo_position(SERV_GRAB,1200);msleep(200);set_servo_position(SERV_GRAB,950);}
+void release_poms(){set_servo_position(SERV_GRAB,1200);msleep(200);}
 void bump_poms(){set_servo_position(SERV_GRAB,1510);msleep(10);set_servo_position(SERV_GRAB,1410);}
 
 void sweep_bump(){set_servo_position(SERV_SWEEP,1450);msleep(40);}
@@ -373,7 +373,7 @@ int main()
 	camera_open(CAM_RES);
 	multicamupdate(5);
 	sweep_default();
-	set_servo_position(SERV_GRAB,800);
+	set_servo_position(SERV_GRAB,650);
 	Get_Mode();
 	while(currstate!=s_END)
 	{
@@ -428,10 +428,10 @@ int main()
 			//msleep(300);
 			//release_poms();
 			
-			left(8,0);
+			left(6,0);
 			forward(25);
 			grab_poms();
-			right(8,0);
+			right(7,0);
 			
 			//grab_poms();
 			//printf("end of Crossfield");
@@ -460,7 +460,7 @@ int main()
 		}
 		state(s_PILEALT)
 		{
-			left(200,ks/2);
+			left(160,ks/2);
 			motor(MOT_PICK,-70);
 			backward(45);
 			forward(5);
@@ -553,7 +553,7 @@ int main()
 			#endif
 			
 			#ifdef RETURNTEST
-			next(s_RETURNSTART)
+			next(s_RETURNSTART);
 			#endif
 		}
 		#ifdef RETURNTEST
