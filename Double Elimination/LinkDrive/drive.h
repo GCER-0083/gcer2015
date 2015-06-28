@@ -11,7 +11,11 @@
 #define PI 3.14159265358979
 
 #define SPD 100//turning
+<<<<<<< HEAD
 #define SPDl 66//left forward
+=======
+#define SPDl 74//left forward
+>>>>>>> origin/master
 #define SPDr 100//right forward
 #define rdistmult 1.0
 #define SPDlb 70.//left backward
