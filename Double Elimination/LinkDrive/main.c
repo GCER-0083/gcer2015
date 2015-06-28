@@ -2,6 +2,8 @@
 #include "generic.h"
 #include "newmenu.h"
 
+//Start the robot with servo 3 at a good position, otherwise the servo will try to go to position 0 when enabled
+
 //Sensors
 #define LEFT_BUMP digital(14)
 #define RIGHT_BUMP digital(15)
@@ -35,7 +37,7 @@ void sort_main(){set_servo_position(SERV_SORT,600);msleep(200);}
 void sort_sec(){set_servo_position(SERV_SORT,1120);}
 //void sort_mid(){set_servo_position(SERV_SORT,1090);msleep(200);}
 
-void grab_poms(){set_servo_position(SERV_GRAB,1200);msleep(200);set_servo_position(SERV_GRAB,950);}
+void grab_poms(){set_servo_position(SERV_GRAB,1000);msleep(200);set_servo_position(SERV_GRAB,850);}
 void release_poms(){set_servo_position(SERV_GRAB,1200);msleep(200);}
 void bump_poms(){set_servo_position(SERV_GRAB,1510);msleep(10);set_servo_position(SERV_GRAB,1410);}
 
@@ -373,7 +375,7 @@ int main()
 	camera_open(CAM_RES);
 	multicamupdate(5);
 	sweep_default();
-	set_servo_position(SERV_GRAB,650);
+	set_servo_position(SERV_GRAB,550);
 	Get_Mode();
 	while(currstate!=s_END)
 	{
@@ -431,7 +433,7 @@ int main()
 			left(6,0);
 			forward(25);
 			grab_poms();
-			right(7,0);
+			right(5,0);
 			
 			//grab_poms();
 			//printf("end of Crossfield");
@@ -448,10 +450,12 @@ int main()
 		{
 			//printf("start of Crossfield");
 			//left(4,0);
+			release_poms(); //put claw higher to prevent it from hitting the black tape
 			forward(10);
 			//grab_poms();
 			//motor(MOT_PICK,40);
 			forward(30);
+			grab_poms();
 			motor(MOT_PICK,0);
 			//right(4,0);
 			//motor(MOT_PICK,-30);
@@ -514,15 +518,15 @@ int main()
 		state(s_REALIGN) //re-aligns the link with the initial starting position
 		{
 			backward(50);
-			forward(30);
+			forward(40);
 			right(180,0);
 			backward(30);
-			next(s_END);
+			next(s_RETURN);
 		}
 		state(s_RETURN)
 		{	
 			forward(30);
-			right(90,0);
+			left(90,0);
 			backward(40);
 			release_poms();
 			forward(120); //return to other side of field
@@ -588,13 +592,16 @@ int main()
 		}
 		state(s_PILE2)
 		{
-			backward(70);
-			forward(19);
-			right(86,0);
-			backward(35);
+			backward(30);
+			forward(28);
+			//left(86,ks/2);
 			release_poms();
-			forward(55);
+			right(90,ks/2);
+			backward(40);
+			forward(50);
 			//motor(MOT_PICK,-40);
+			left(90,ks/2);
+			forward(20);
 			grab_poms();
 			backward(68);
 			forward(20);
@@ -636,6 +643,7 @@ int main()
 			backward(50);
 			forward(10);
 			right(67,0);
+			release_poms();
 			//backward(50);
 			forward(160);
 			//release_poms();
