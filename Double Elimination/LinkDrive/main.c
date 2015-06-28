@@ -35,7 +35,7 @@ void sort_main(){set_servo_position(SERV_SORT,600);msleep(200);}
 void sort_sec(){set_servo_position(SERV_SORT,1120);}
 //void sort_mid(){set_servo_position(SERV_SORT,1090);msleep(200);}
 
-void grab_poms(){set_servo_position(SERV_GRAB,1200);msleep(200);set_servo_position(SERV_GRAB,950);}
+void grab_poms(){set_servo_position(SERV_GRAB,1200);msleep(200);set_servo_position(SERV_GRAB,900);}
 void release_poms(){set_servo_position(SERV_GRAB,1200);msleep(200);}
 void bump_poms(){set_servo_position(SERV_GRAB,1510);msleep(10);set_servo_position(SERV_GRAB,1410);}
 
