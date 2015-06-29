@@ -10,10 +10,10 @@ void blocks () {
 	raiseClaw();
 	driveForward(39, 1);
 	msleep(200);
-	turnLeft(92);
+	turnLeft(90);
 	driveForward(9,1);
 	msleep(200);
-	turnLeft(85);
+	turnLeft(90);
 	msleep(500);
 	//driveForward(2, 1);
 	msleep(500);
@@ -24,8 +24,8 @@ void blocks () {
 	
 	//get into position to alley
 	raiseClaw();
-	driveBackward(3, 1);
-	turnLeft(-90);
+	driveBackward(20, 1);
+	turnLeft(-110);
 	squareUp(1,3);
 	msleep(200);
 }
@@ -35,8 +35,8 @@ void prepare() {
 	raiseClaw();
 	turnRight(88);
 	closeClaw();
+	//driveUntilET(1);
 	driveUntilET(1);
-	
 	turnRight(94); //bump turn
 	driveUntilET2(1);
 	driveUntilET(1);
@@ -101,15 +101,15 @@ void lane2Dump () {
 
 
 void LINK_main() {
-	//blocks ();
+	blocks ();
 	prepare ();
-	//lane1 ();
-	//lane2Dump();
+	lane1 ();
+	lane2Dump();
 }
 	
 int main() {
 	//wait_for_light(0);
-5enableAllServos();
+	enableAllServos();
 	LINK_main();
 }
 

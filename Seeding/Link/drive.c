@@ -79,38 +79,27 @@ void clawCloseBack(float distance, float speed) {
 void driveForward(float distance, float speed) {
 	clear_motor_position_counter(MOTOR_LEFT);
 	clear_motor_position_counter(MOTOR_RIGHT);
-	motor(MOTOR_LEFT, speed*LEFT_FULL_POWER*DrFLC);
-	motor(MOTOR_RIGHT, speed*RIGHT_FULL_POWER*DrFRC);
+	motor(MOTOR_RIGHT, speed*DrFRC);
+	motor(MOTOR_LEFT, speed*DrFLC);
 	int i = 0;
 	while(get_motor_position_counter(MOTOR_LEFT)< distance*CMTOBEMF  && get_motor_position_counter(MOTOR_RIGHT) < distance*CMTOBEMF) {
-      if (++i > 1000) {
-	    printf("ET sensor: %d\n", analog_et(0));
-		i = 0;
-	  }
 	}
 	printf("%d\n", get_motor_position_counter(MOTOR_LEFT));
 	ao();
 }
-void veerForward(float distance, float speed) {
-	clear_motor_position_counter(MOTOR_LEFT);
-	clear_motor_position_counter(MOTOR_RIGHT);
-	motor(MOTOR_LEFT, speed*LEFT_FULL_POWER*DrFLC);
-	motor(MOTOR_RIGHT, speed*RIGHT_FULL_POWER*veerFRC);
-	while(get_motor_position_counter(MOTOR_LEFT)< distance*CMTOBEMF  && get_motor_position_counter(MOTOR_RIGHT) < distance*CMTOBEMF) {}
-	printf("%d\n", get_motor_position_counter(MOTOR_LEFT));
-	ao();
-}
+
 	/**
 		Drives the robot backward a specified distance at a specified speed.
 		
 		@param distance : The distance is measured in cm
 		@param speed : The speed is a number between 0 and 1
 */
+
 void driveBackward(float distance, float speed) {
 	clear_motor_position_counter(MOTOR_LEFT);
 	clear_motor_position_counter(MOTOR_RIGHT);
-	motor(MOTOR_LEFT,-speed*LEFT_FULL_POWER*DrBLC);
-	motor(MOTOR_RIGHT,-speed*RIGHT_FULL_POWER*DrBRC);
+	motor(MOTOR_LEFT,-speed*DrBLC);
+	motor(MOTOR_RIGHT,-speed*DrBRC);
 	while(get_motor_position_counter(MOTOR_LEFT)>-distance*CMTOBEMF && get_motor_position_counter(MOTOR_RIGHT)>-distance*CMTOBEMF){
 	}
 	ao();
@@ -124,80 +113,10 @@ void driveBackward(float distance, float speed) {
 		@param speed : The speed is a number between 0 and 1
 */
 
-void driveUntilLine(float speed) { //TO EDIT 
-	motor(MOTOR_LEFT, speed*LEFT_FULL_POWER/2);
-	motor(MOTOR_RIGHT, speed*RIGHT_FULL_POWER/2); //forward half power
-	while (analog(LS_LEFT) < TAPE_VALUE && analog(LS_RIGHT) < TAPE_VALUE) {} //until one sees black
-	ao();
-	msleep(500);
-	if (analog(LS_LEFT) > TAPE_VALUE) //checking which sensor saw black first
-	{
-		motor(MOTOR_RIGHT, speed*RIGHT_FULL_POWER/2); //turn to straighten on line
-		//motor(MOTOR_LEFT, -15);
-		while (analog(LS_RIGHT) < TAPE_VALUE) {}
-		ao();
-	}
-	if (analog(LS_RIGHT) > TAPE_VALUE) 
-	{
-		motor(MOTOR_LEFT, speed*LEFT_FULL_POWER/2);
-		//motor(MOTOR_RIGHT, -15);
-		while (analog(LS_LEFT) < TAPE_VALUE) {}
-		ao();
-	}
-}
 
-void driveUntilTape(float speed) {
-	motor(MOTOR_LEFT, speed*LEFT_FULL_POWER/1.5);
-	motor(MOTOR_RIGHT, speed*RIGHT_FULL_POWER/1.5); //forward half power
-	while (analog(LS_LEFT) < TAPE_VALUE && analog(LS_RIGHT) < TAPE_VALUE) {} //until one sees black
-	ao();
-	msleep(500);
-	if (analog(LS_LEFT) > TAPE_VALUE) //checking which sensor saw black first
-	{
-		motor(MOTOR_RIGHT, speed*RIGHT_FULL_POWER/2); //turn to straighten on line
-		motor(MOTOR_LEFT, -25);
-		while (analog(LS_RIGHT) < TAPE_VALUE) {}
-		ao();
-	}
-	if (analog(LS_RIGHT) > TAPE_VALUE) 
-	{
-		motor(MOTOR_LEFT, speed*LEFT_FULL_POWER/2);
-		motor(MOTOR_RIGHT, -25);
-		while (analog(LS_LEFT) < TAPE_VALUE) {}
-		ao();
-	}
-}
-
-	/**
-		Makes the robot follow a line forward for a specified distance at a specified speed.
-	
-		@param distance : The distance the robot should go in cm
-		@param speed : a number between 0 and 1
-*/
-void lineFollowForward(float distance, float speed) {
-	
-}
-
-	/**
-		Makes the robot follow a line forward for a specified distance at a specified speed.
-	
-		@param distance : The distance the robot should go in cm
-		@param speed : a number between 0 and 1
-*/
-void lineFollowBackward(float distance, float speed) {
-	
-}
-
-	/**
-		Drives the robot a specified number of degrees around a circle of specified radius.
-	
-		@param degrees : How many degrees the robot should move around the arc
-		@param radius : The radius of the arc the robot will travel in (in cm)
-		@param speed : The speed is a number between 0 and 1
-*/
 void turnRight(float degrees/*, float radius*/) {
 	int check = 0;
-	double radius = 14.3;
+	double radius = 14.5;
 	double dr = (degrees/360)*2*PI*radius*Rt;
 	clear_motor_position_counter(MOTOR_LEFT);
 	clear_motor_position_counter(MOTOR_RIGHT);
@@ -209,8 +128,7 @@ void turnRight(float degrees/*, float radius*/) {
 	if (check != 1)
 	{
 		motor(MOTOR_LEFT,-LEFT_FULL_POWER);
-		while(get_motor_position_counter(MOTOR_LEFT)>dr*CMTOBEMF)
-		{
+		while(get_motor_position_counter(MOTOR_LEFT)>dr*CMTOBEMF) {
 		}
 	}
 	ao();
@@ -225,11 +143,11 @@ void turnRight(float degrees/*, float radius*/) {
 */
 void turnLeft(float degrees/*, float radius*/) {
 	int check = 0;
-	double radius = 14.3;
+	double radius = 14.5;
 	double dr = (degrees/360)*2*PI*radius*Lt;
 	clear_motor_position_counter(MOTOR_LEFT);
 	clear_motor_position_counter(MOTOR_RIGHT);
-	motor(MOTOR_RIGHT,RIGHT_FULL_POWER);
+	motor(MOTOR_RIGHT,100);
 	while(get_motor_position_counter(MOTOR_RIGHT)<dr*CMTOBEMF) 
 	{	
 		check = 1;
@@ -237,8 +155,7 @@ void turnLeft(float degrees/*, float radius*/) {
 	if (check != 1)
 	{
 		motor(MOTOR_RIGHT,-RIGHT_FULL_POWER);
-		while(get_motor_position_counter(MOTOR_RIGHT)>dr*CMTOBEMF)
-		{
+		while(get_motor_position_counter(MOTOR_RIGHT)>dr*CMTOBEMF) {
 		}
 	}
 	ao();
@@ -255,8 +172,8 @@ void driveUntilET(float speed) {
 //	printf("Initial ET sensor: %d\n", analog_et(0));
 	while (analog_et(0) > 320) {
 //	while (1) {
-		motor(MOTOR_LEFT, speed*LEFT_FULL_POWER*DrFLC);
-		motor(MOTOR_RIGHT, speed*RIGHT_FULL_POWER*DrFRC);
+		motor(MOTOR_LEFT, speed*DrFLC);
+		motor(MOTOR_RIGHT, speed*DrFRC);
 		printf("ET sensor: %d\n", analog_et(0));
 	}
 	ao();

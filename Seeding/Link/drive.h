@@ -3,7 +3,7 @@
 #define WHEEL_DIAMETER 5.8
 #define MOTOR_LEFT 1
 #define MOTOR_RIGHT 0
-#define LEFT_FULL_POWER 97
+#define LEFT_FULL_POWER 100
 #define RIGHT_FULL_POWER 100
 #define SERVO_OPEN_CLOSE 1
 #define SERVO_UP_DOWN 3
@@ -18,13 +18,12 @@
 #define BLOCK_GRAB CLAW_CLOSED+200
 
 //tuning constants
-#define DrFLC 100/LEFT_FULL_POWER
-#define DrFRC 85/RIGHT_FULL_POWER
-#define veerFRC 96
-#define DrBRC 94/RIGHT_FULL_POWER
-#define DrBLC 100/LEFT_FULL_POWER
-#define Rt 1 
-#define Lt 1
+#define DrFLC 100
+#define DrFRC 98
+#define DrBRC 85
+#define DrBLC 100
+#define Rt 1.35
+#define Lt 1.35
 #define CLAW_CLOSED 110
 #define CLAW_UP 77
 
@@ -47,7 +46,6 @@ void driveUntilLine(float speed);
 void turnRight(float degrees/*, float radius*/);
 void turnLeft(float degrees/*, float radius*/);
 void squareUp(float speed,float time);
-void veerForward(float distance, float speed);
 void driveUntilET(float speed);
 void driveUntilET2(float speed);
 void driveUntilTH(float speed);
