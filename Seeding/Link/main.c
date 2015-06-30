@@ -10,10 +10,10 @@ void blocks () {
 	raiseClaw();
 	driveForward(39, 1);
 	msleep(200);
-	turnLeft(90);
+	turnLeft(100);
 	driveForward(9,1);
 	msleep(200);
-	turnLeft(90);
+	turnLeft(80);
 	msleep(500);
 	//driveForward(2, 1);
 	msleep(500);
@@ -24,8 +24,8 @@ void blocks () {
 	
 	//get into position to alley
 	raiseClaw();
-	driveBackward(20, 1);
-	turnLeft(-110);
+	driveBackward(1, 1);
+	turnLeft(-95);
 	squareUp(1,3);
 	msleep(200);
 }
@@ -33,15 +33,15 @@ void blocks () {
 void prepare() {
 
 	raiseClaw();
-	turnRight(88);
+	turnRight(75);
 	closeClaw();
 	//driveUntilET(1);
 	driveUntilET(1);
-	turnRight(94); //bump turn
+	turnRight(90); //bump turn
 	driveUntilET2(1);
 	driveUntilET(1);
 	driveForward(3, 1);
-	turnRight(93); //bumpy turn
+	turnRight(95); //bumpy turn
 }
 
 void lane1() {
@@ -49,10 +49,10 @@ void lane1() {
 	lowerClaw();
 	openClaw();
 	driveUntilTH(1);
-	clawCloseBack(2,1);
+	clawCloseBack(1.5,1);
 	//closeClaw();
 	raiseClaw();
-	driveBackward(10,1);
+	driveBackward(15,1);
 	msleep(500);
 	turnLeft(-93);
 	squareUp(1, 2);
@@ -60,30 +60,31 @@ void lane1() {
 }
 
 void driveToLane () {
-	driveForward(2, 1);
-	turnRight(90);
+	driveForward(1, 1);
+	turnRight(100);
 	driveUntilET(1);
 }
 
 void throughLane () {
+	driveForward(10, 1);
 	lowerClaw();
 	openClaw();
 	driveUntilTH(1);
-	clawCloseBack(2,1);
+	clawCloseBack(1,1);
 }
 
 void laneSquareUp() {
 	raiseClaw();
-	msleep(1000);
-	driveBackward(5,1);
+	msleep(100);
+	driveBackward(15,1);
 	
-	turnRight(95);
+	turnLeft(-95);
 	squareUp(1, 2);
 }
 
 void laneOutDump () {
-	turnRight(100);
-	driveUntilETFollow(1);
+	turnRight(85);
+	driveUntilET(1);
 	turnRight(85);
 	driveForward(25,1);
 	turnLeft(80);
@@ -101,6 +102,7 @@ void lane2Dump () {
 
 
 void LINK_main() {
+	
 	blocks ();
 	prepare ();
 	lane1 ();

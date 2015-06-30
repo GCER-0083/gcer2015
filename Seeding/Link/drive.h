@@ -1,13 +1,13 @@
 //define things for drive.c here
 
-#define WHEEL_DIAMETER 5.8
+#define WHEEL_DIAMETER 5.7
 #define MOTOR_LEFT 1
 #define MOTOR_RIGHT 0
 #define LEFT_FULL_POWER 100
 #define RIGHT_FULL_POWER 100
 #define SERVO_OPEN_CLOSE 1
 #define SERVO_UP_DOWN 3
-#define CLAW_OPEN CLAW_CLOSED+520
+#define CLAW_OPEN 890
 #define CLAW_DOWN 900
 #define CLAW_OPEN_READY CLAW_CLOSED+600
 #define CLAW_UP_READY 530
@@ -22,8 +22,8 @@
 #define DrFRC 98
 #define DrBRC 85
 #define DrBLC 100
-#define Rt 1.35
-#define Lt 1.35
+#define Rt 1
+#define Lt 0.99
 #define CLAW_CLOSED 110
 #define CLAW_UP 77
 
@@ -54,7 +54,3 @@ void driveUntilETFollow(float speed);
 //main
 
 void LINK_main();
-
-//Slow servo Notes: servo position must have been set prior in the program before running this command
-void moveServo(int destination, int time, int port);
-

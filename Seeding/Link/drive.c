@@ -170,7 +170,7 @@ void squareUp(float speed,float time) {
 
 void driveUntilET(float speed) {
 //	printf("Initial ET sensor: %d\n", analog_et(0));
-	while (analog_et(0) > 320) {
+	while (analog_et(0) > 350) {
 //	while (1) {
 		motor(MOTOR_LEFT, speed*DrFLC);
 		motor(MOTOR_RIGHT, speed*DrFRC);
@@ -200,10 +200,10 @@ void driveUntilETFollow(float speed) {
 }
 
 void driveUntilTH(float speed) {
-	while (analog10(7) > 420) {
-		motor(MOTOR_LEFT, speed*LEFT_FULL_POWER*DrFLC);
-		motor(MOTOR_RIGHT, speed*RIGHT_FULL_POWER*DrFRC);
-	}
+	while (analog10(7) > 350) {
+		motor(MOTOR_LEFT, speed*DrFLC);
+		motor(MOTOR_RIGHT, speed*DrFRC);
+	}	
 	ao();
 }
 
@@ -211,27 +211,10 @@ void driveUntilET2(float speed) {
 //	printf("Initial ET sensor: %d\n", analog_et(0));
 	while (analog_et(0) < 320) {
 //	while (1) {
-		motor(MOTOR_LEFT, speed*LEFT_FULL_POWER*DrFLC);
-		motor(MOTOR_RIGHT, speed*RIGHT_FULL_POWER*DrFRC);
+		motor(MOTOR_LEFT, speed*DrFLC);
+		motor(MOTOR_RIGHT, speed*DrFRC);
 		printf("ET sensor: %d\n", analog_et(0));
 	}
 	ao();
 }
 
-void moveServo(int destination, int time, int port) {
-	int increment;
-	int initAngle = get_servo_position(port);
-	int angle = initAngle;
-	if(angle < destination) {
-		increment = 1;
-	} else {
-		increment = -1;
-	}	
-	
-	while(abs(angle - destination) > 5) {
-		printf("%d\n", angle);
-		angle += increment;
-		set_servo_position(port, angle);
-		msleep(time / abs(destination - initAngle));
-	}
-}
