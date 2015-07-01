@@ -15,8 +15,7 @@ void blocks () {
 	msleep(200);
 	turnLeft(80);
 	msleep(500);
-	//driveForward(2, 1);
-	msleep(500);
+	driveForward(2,1);
 	raiseClawReady();
 	openClaw();
 	msleep(400);
@@ -49,14 +48,13 @@ void lane1() {
 	lowerClaw();
 	openClaw();
 	driveUntilTH(1);
-	clawCloseBack(1.5,1);
-	//closeClaw();
+	driveBackward(3, 1);
+	closeClaw();
 	raiseClaw();
 	driveBackward(15,1);
 	msleep(500);
 	turnLeft(-93);
 	squareUp(1, 2);
-	
 }
 
 void driveToLane () {
@@ -70,7 +68,17 @@ void throughLane () {
 	lowerClaw();
 	openClaw();
 	driveUntilTH(1);
-	clawCloseBack(1,1);
+	driveBackward(3, 1);
+	closeClaw();
+	
+	driveBackward(20, 1);
+	raiseClawReady();
+	driveForward(2, 1);
+	openClaw();
+	closeClaw();
+	openClaw();
+	closeClaw();
+	//clawCloseBack(2,1);
 }
 
 void laneSquareUp() {

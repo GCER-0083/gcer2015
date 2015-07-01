@@ -10,7 +10,7 @@
 #define CLAW_OPEN 890
 #define CLAW_DOWN 900
 #define CLAW_OPEN_READY CLAW_CLOSED+600
-#define CLAW_UP_READY 530
+#define CLAW_UP_READY 400
 #define LS_LEFT 1
 #define LS_RIGHT 0
 #define TAPE_VALUE 880
