@@ -30,9 +30,8 @@ void blocks () {
 }
 
 void prepare() {
-
 	raiseClaw();
-	turnRight(75);
+	turnRight(90);
 	closeClaw();
 	//driveUntilET(1);
 	driveUntilET(1);
@@ -71,9 +70,9 @@ void throughLane () {
 	driveBackward(3, 1);
 	closeClaw();
 	
-	driveBackward(20, 1);
+	driveBackward(30, 1);
 	raiseClawReady();
-	driveForward(2, 1);
+	driveForward(5, 1);
 	openClaw();
 	closeClaw();
 	openClaw();
@@ -110,16 +109,17 @@ void lane2Dump () {
 
 
 void LINK_main() {
-	
-	blocks ();
+	//blocks ();
 	prepare ();
-	lane1 ();
-	lane2Dump();
+	//lane1 ();
+	//lane2Dump();
 }
 	
 int main() {
 	//wait_for_light(0);
 	enableAllServos();
 	LINK_main();
+//	raiseClaw();
+//	turnRight(90);
 }
 

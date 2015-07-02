@@ -20,9 +20,9 @@
 //tuning constants
 #define DrFLC 100
 #define DrFRC 98
-#define DrBRC 85
+#define DrBRC 98
 #define DrBLC 100
-#define Rt 1
+#define Rt 1							
 #define Lt 0.99
 #define CLAW_CLOSED 110
 #define CLAW_UP 77

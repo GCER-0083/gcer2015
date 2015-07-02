@@ -62,11 +62,32 @@ void pingPong2() {
 		pingPongHigh2();
 }
 
+
 void pingPongLow2() {
 	armMove(ARM_LOW+500, 1000, 10, 100);
 	createDrive(300, 14);
 	raiseLowerArm(ARM_MEDIUM, 1000);
 	playCoin();
+	createDriveBack(100, 2);
+	armMove(ARM_HIGH, 1000, 15, -100);		//gets into position
+}
+
+void basketDump() {
+	createTurnRight(7);
+	createSquareUp(300, 2);
+	createDriveBack(100, 5);
+	raiseLowerArm(ARM_DOWN, 1000);
+	msleep(5000);
+	armMove(ARM_MEDIUM + 300, 1000, 35, -200);	
+}
+
+void pingPongMedium2() {
+	//createTurnRight(20);
+	createTurnRight(13);
+	createDrive(300, 15);
+	raiseLowerArm(ARM_HIGH, 1000);		//gets ping pong
+	playCoin();
+	msleep(500);
 }
 
 void pingPongHigh2() {
@@ -78,16 +99,6 @@ void pingPongHigh2() {
 	raiseLowerArm(ARM_HIGH, 500);		//gets ping pong
 	playCoin();
 	createDriveBack(100, 15);
-}
-
-void pingPongMedium2() {
-	createDriveBack(100, 2);
-	armMove(ARM_MEDIUM + 300, 1000, 15, -100);		//gets into position
-	createTurnRight(20);
-	createDrive(300, 15);
-	raiseLowerArm(ARM_HIGH, 1000);		//gets ping pong
-	playCoin();
-	msleep(500);
 }
 
 void scrape() {

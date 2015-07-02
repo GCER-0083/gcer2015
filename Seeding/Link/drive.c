@@ -113,7 +113,6 @@ void driveBackward(float distance, float speed) {
 		@param speed : The speed is a number between 0 and 1
 */
 
-
 void turnRight(float degrees/*, float radius*/) {
 	int check = 0;
 	double radius = 14.5;
@@ -121,14 +120,14 @@ void turnRight(float degrees/*, float radius*/) {
 	clear_motor_position_counter(MOTOR_LEFT);
 	clear_motor_position_counter(MOTOR_RIGHT);
 	motor(MOTOR_LEFT,LEFT_FULL_POWER);
-	while(get_motor_position_counter(MOTOR_LEFT)<dr*CMTOBEMF) 
+	while(get_motor_position_counter(MOTOR_LEFT)+175<dr*CMTOBEMF) 
 	{	
 		check = 1;
 	} 
 	if (check != 1)
 	{
 		motor(MOTOR_LEFT,-LEFT_FULL_POWER);
-		while(get_motor_position_counter(MOTOR_LEFT)>dr*CMTOBEMF) {
+		while(get_motor_position_counter(MOTOR_LEFT)+175>dr*CMTOBEMF) {
 		}
 	}
 	ao();
