@@ -208,7 +208,7 @@ void driveUntilTH(float speed) {
 
 void driveUntilET2(float speed) {
 //	printf("Initial ET sensor: %d\n", analog_et(0));
-	while (analog_et(0) < 320) {
+	while (analog_et(0) < 340) {
 //	while (1) {
 		motor(MOTOR_LEFT, speed*DrFLC);
 		motor(MOTOR_RIGHT, speed*DrFRC);

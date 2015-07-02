@@ -56,11 +56,6 @@ void pingPong() {
 	pingPongLow();
 }
 
-void pingPong2() {
-	pingPongLow2();
-	pingPongMedium2();
-		pingPongHigh2();
-}
 
 
 void pingPongLow2() {
@@ -99,6 +94,13 @@ void pingPongHigh2() {
 	raiseLowerArm(ARM_HIGH, 500);		//gets ping pong
 	playCoin();
 	createDriveBack(100, 15);
+}
+
+
+void pingPong2() {
+	pingPongLow2();
+	pingPongMedium2();
+	pingPongHigh2();
 }
 
 void scrape() {

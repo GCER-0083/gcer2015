@@ -8,6 +8,7 @@ void blocks () {
 	//blocks to basket
 	//raiseClawReady();
 	raiseClaw();
+	squareUp(1, 1);
 	driveForward(39, 1);
 	msleep(200);
 	turnLeft(100);
@@ -23,8 +24,8 @@ void blocks () {
 	
 	//get into position to alley
 	raiseClaw();
-	driveBackward(1, 1);
-	turnLeft(-95);
+	driveBackward(2, 1);
+	turnLeft(-90);
 	squareUp(1,3);
 	msleep(200);
 }
@@ -33,13 +34,12 @@ void prepare() {
 	raiseClaw();
 	turnRight(90);
 	closeClaw();
-	//driveUntilET(1);
 	driveUntilET(1);
-	turnRight(90); //bump turn
+	turnRight(94); //bump turn
 	driveUntilET2(1);
-	driveUntilET(1);
-	driveForward(3, 1);
-	turnRight(95); //bumpy turn
+	//driveUntilET(1);
+	//driveForward(5, 1);
+	//turnRight(96); //bumpy turn
 }
 
 void lane1() {
