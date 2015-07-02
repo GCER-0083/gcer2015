@@ -99,6 +99,7 @@ void pingPongHigh2() {
 
 void pingPong2() {
 	pingPongLow2();
+	basketDump();
 	pingPongMedium2();
 	pingPongHigh2();
 }

@@ -32,20 +32,21 @@ void blocks () {
 
 void prepare() {
 	raiseClaw();
-	turnRight(90);
+	turnRight(84);
 	closeClaw();
 	driveUntilET(1);
-	turnRight(94); //bump turn
+	//driveBackward(1, 1);
+	turnRight(120); //bump turn
 	driveUntilET2(1);
-	//driveUntilET(1);
-	//driveForward(5, 1);
-	//turnRight(96); //bumpy turn
+	driveUntilET(1);
+	turnRight(90); //bumpy turn
 }
 
 void lane1() {
 	//drive down first alley for tribbles
 	lowerClaw();
 	openClaw();
+	driveForward(57, 1);
 	driveUntilTH(1);
 	driveBackward(3, 1);
 	closeClaw();
@@ -57,15 +58,16 @@ void lane1() {
 }
 
 void driveToLane () {
-	driveForward(1, 1);
-	turnRight(100);
+	raiseClaw();
+	turnRight(93);
 	driveUntilET(1);
 }
 
 void throughLane () {
-	driveForward(10, 1);
+	driveForward(20, 1);
 	lowerClaw();
 	openClaw();
+	driveForward(60, 1);
 	driveUntilTH(1);
 	driveBackward(3, 1);
 	closeClaw();
@@ -104,15 +106,15 @@ void lane2Dump () {
 	driveToLane();
 	throughLane();
 	laneSquareUp();
-	laneOutDump();
+	//laneOutDump();
 }
 
 
 void LINK_main() {
-	//blocks ();
+	blocks ();
 	prepare ();
-	//lane1 ();
-	//lane2Dump();
+	lane1 ();
+	lane2Dump();
 }
 	
 int main() {

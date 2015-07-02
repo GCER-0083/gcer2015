@@ -120,14 +120,16 @@ void turnRight(float degrees/*, float radius*/) {
 	clear_motor_position_counter(MOTOR_LEFT);
 	clear_motor_position_counter(MOTOR_RIGHT);
 	motor(MOTOR_LEFT,LEFT_FULL_POWER);
-	while(get_motor_position_counter(MOTOR_LEFT)+175<dr*CMTOBEMF) 
+	while(get_motor_position_counter(MOTOR_LEFT)+135 < dr*CMTOBEMF)
+	//while(get_motor_position_counter(MOTOR_LEFT) < dr*CMTOBEMF)
 	{	
 		check = 1;
 	} 
 	if (check != 1)
 	{
 		motor(MOTOR_LEFT,-LEFT_FULL_POWER);
-		while(get_motor_position_counter(MOTOR_LEFT)+175>dr*CMTOBEMF) {
+		while(get_motor_position_counter(MOTOR_LEFT)+135 > dr*CMTOBEMF) {
+		//while(get_motor_position_counter(MOTOR_LEFT) > dr*CMTOBEMF) {
 		}
 	}
 	ao();
@@ -175,6 +177,7 @@ void driveUntilET(float speed) {
 		motor(MOTOR_RIGHT, speed*DrFRC);
 		printf("ET sensor: %d\n", analog_et(0));
 	}
+	printf("ET sensor final value: %d\n", analog_et(0));
 	ao();
 }
 
@@ -208,12 +211,13 @@ void driveUntilTH(float speed) {
 
 void driveUntilET2(float speed) {
 //	printf("Initial ET sensor: %d\n", analog_et(0));
-	while (analog_et(0) < 340) {
+	while (analog_et(0) < 400) {
 //	while (1) {
 		motor(MOTOR_LEFT, speed*DrFLC);
 		motor(MOTOR_RIGHT, speed*DrFRC);
 		printf("ET sensor: %d\n", analog_et(0));
 	}
+		printf("ET sensor final value: %d\n", analog_et(0));
 	ao();
 }
 
