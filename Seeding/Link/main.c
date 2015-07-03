@@ -73,6 +73,7 @@ void throughLane () {
 	closeClaw();
 	
 	driveBackward(30, 1);
+	driveUntilTH(1);
 	raiseClawReady();
 	driveForward(5, 1);
 	openClaw();
@@ -91,22 +92,67 @@ void laneSquareUp() {
 	squareUp(1, 2);
 }
 
-void laneOutDump () {
+void cube1 () {
 	turnRight(85);
 	driveUntilET(1);
-	turnRight(85);
-	driveForward(25,1);
-	turnLeft(80);
+	turnLeft(90);
+	driveForward(32,1);
+	turnRight(90);
+	lowerClaw();
+	openClaw();
+	driveForward(30, 1);
+	turnRight(-100);
+	squareUp(1, 1);
+	turnRight(90);
+	driveUntilTH(1);
+	driveBackward(3, 1);
+	closeClaw();
+	raiseClaw();
+	driveBackward(30,1);
+	turnRight(-100);
+	squareUp(1, 1);
+}
+	
+void cube2 () {
+	turnLeft(90);
+	driveUntilET(1);
+	driveUntilET2(1);
+	driveForward(20, 1);
+	turnLeft(-100);
+	squareUp(1, 1);
+	turnLeft(90);
+	driveUntilTH(1);
+	driveBackward(3, 1);
+	closeClaw();
+	raiseClaw();
+	driveBackward(30,1);
+	turnLeft(-100);
+	squareUp(1, 1);
+}
+	
+void back () {
+	raiseClaw();
+	turnRight(84);
+	closeClaw();
+	driveUntilET(1);
+	//driveBackward(1, 1);
+	turnRight(100); //bump turn
+	driveUntilET2(1);
+	driveUntilET(1);
+	driveForward(10, 1);
+	driveUntilET2(1);
+	driveUntilET(1);
+	driveForward(25, 1);
+	turnLeft(90);
 	raiseClawReady();
-	dumpClaw();
-	driveBackward(50,1);
+	driveForward(15);
+	clawDump();
 }
 
 void lane2Dump () {
 	driveToLane();
 	throughLane();
 	laneSquareUp();
-	//laneOutDump();
 }
 
 
@@ -115,6 +161,9 @@ void LINK_main() {
 	prepare ();
 	lane1 ();
 	lane2Dump();
+	cube1();
+	cube2();
+	back();
 }
 	
 int main() {
