@@ -9,7 +9,7 @@
 //self explanatory
 void arm_up()
 {
-	set_servo_position(SERV_ARM,222);
+	set_servo_position(SERV_ARM,150);
 	msleep(2000);
 }
 void arm_final()
@@ -36,10 +36,13 @@ void flip_close()
 //Picks up cubes by lifting arm slightly and flipping the cover. Should only be used in the beginning
 void serv_pick()
 {
-	set_servo_position(SERV_ARM,1250);
+	set_servo_position(SERV_ARM,900);
 	msleep(2000);
 	flip_open();
-	arm_down();
+	msleep(900);
+	set_servo_position(SERV_ARM,1050);
+	msleep(900);
+	set_servo_position(SERV_ARM,1500);
 	msleep(1000);
 }
 int main()
@@ -70,16 +73,24 @@ int main()
 	
 	arm_up();
 	
-	create_left(22,0,300);
+	create_left(22,0,200);
 	create_block();
 	
 	flip_open();
 	msleep(500);
 	
-	create_backward(500,400);
+	create_backward(400,400);
 	create_block();
 	
-	create_backward(90,100);
+	set_servo_position(SERV_FLIP,500);
+	msleep(300);
+	
+	create_backward(150,100);
+	create_block();
 		
+	create_left(5,0,100);
+	create_block();
+		
+	flip_open();
 	//flip_open();
 }
