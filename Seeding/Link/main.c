@@ -145,8 +145,11 @@ void back () {
 	driveForward(25, 1);
 	turnLeft(90);
 	raiseClawReady();
-	driveForward(15);
-	clawDump();
+	driveForward(15,1);
+	openClaw();
+	closeClaw();
+	openClaw();
+	closeClaw();
 }
 
 void lane2Dump () {
