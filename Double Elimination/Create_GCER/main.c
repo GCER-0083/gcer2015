@@ -2,6 +2,8 @@
 #include "createDrive.h"
 //#include "newmenu.h"
 
+#define LIGHT_PORT 0
+
 #define SERV_ARM 2
 #define SERV_FLIP 1
 //self explanatory
@@ -24,7 +26,7 @@ void arm_down()
 void flip_open()
 {
 	set_servo_position(SERV_FLIP,300);
-	msleep(1000);
+	msleep(500);
 }
 void flip_close()
 {
@@ -34,17 +36,16 @@ void flip_close()
 //Picks up cubes by lifting arm slightly and flipping the cover. Should only be used in the beginning
 void serv_pick()
 {
-	set_servo_position(SERV_ARM,1200);
+	set_servo_position(SERV_ARM,1250);
 	msleep(2000);
-	arm_down();
-	msleep(500);
 	flip_open();
-	msleep(500);
+	arm_down();
+	msleep(1000);
 }
 int main()
 {
 	//init
-	sleep(10);
+	//sleep(10);
 	create_connect();
 	arm_down();
 	set_servo_position(SERV_FLIP,2047);
@@ -73,6 +74,7 @@ int main()
 	create_block();
 	
 	flip_open();
+	msleep(500);
 	
 	create_backward(500,400);
 	create_block();

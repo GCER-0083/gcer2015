@@ -127,13 +127,13 @@ void cam_sort(int mainColor, int size, int discrepancy, int time, int jamDist)
 			{
 				if(turn==0||turn==6)
 				{
-					motor(MOT_RIGHT,71);
+					motor(MOT_RIGHT,60);
 					rightPos=gmpc(MOT_RIGHT);
 					turn = 1;
 				}
 				else if(turn==2)
 				{
-					motor(MOT_LEFT,71);
+					motor(MOT_LEFT,60);
 					leftPos=gmpc(MOT_LEFT);
 					turn = 3;
 				}
