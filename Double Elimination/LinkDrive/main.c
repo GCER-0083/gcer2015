@@ -35,8 +35,7 @@ void sort_main(){set_servo_position(SERV_SORT,600);msleep(200);}
 void sort_sec(){set_servo_position(SERV_SORT,1120);}
 //void sort_mid(){set_servo_position(SERV_SORT,1090);msleep(200);}
 
-void grab_poms(){set_servo_position(SERV_GRAB,850);msleep(200);}
-void backward_grab_poms(){set_servo_position(SERV_GRAB, 800);msleep(200);}
+void grab_poms(){set_servo_position(SERV_GRAB,900);msleep(200);}
 void release_poms(){set_servo_position(SERV_GRAB,1200);msleep(200);}
 void bump_poms(){set_servo_position(SERV_GRAB,1510);msleep(10);set_servo_position(SERV_GRAB,1410);}
 
@@ -341,11 +340,11 @@ int main()
 			shut_down_in(119);
 			release_poms();
 			
-			forward(28);
-			left(9,0);
-			forward(30);
+			forward(25);
+			left(7,0);
+			forward(25);
 			grab_poms();
-			right(6,0);
+			right(7,0);
 			if(alt==0)
 				next(s_CROSSFIELD);	
 			else
@@ -363,16 +362,14 @@ int main()
 		}
 		state(s_PILEALT)
 		{
-			left(180,ks/2);
+			left(160,ks/2);
 			motor(MOT_PICK,-70);
-			backward_grab_poms();
 			backward(45);
-			grab_poms();
 			cam_sort(0,50,25,12,2);
-			backward_grab_poms();
+			grab_poms();
 			backward(23);
 			cam_sort(0,50,25,10,2);
-			backward_grab_poms();
+			grab_poms();
 			backward(23);
 			next(s_PILE2);
 		}
@@ -448,21 +445,17 @@ int main()
 		{
 			forward(28);
 			release_poms();
-			right(-86,10);
-			backward(50);
+			left(86,ks/2);
+			backward(100);
 			forward(25);
 			//motor(MOT_PICK,-40);
 			right(86,ks/2);
-			backward(35);
 			forward(20);
-			backward_grab_poms();
-			backward(68);
 			grab_poms();
+			backward(68);
 			forward(20);
 			left(88,ks/2);
-			backward_grab_poms();
 			backward(40);
-			grab_poms();
 			cam_sort(0,50,25,30,2);
 			sort_main();
 			right(45,0);
@@ -471,9 +464,7 @@ int main()
 		}
 		state(s_RETURNFIELD)
 		{
-			backward_grab_poms();
 			backward(50);
-			grab_poms();
 			forward(10);
 			right(67,0);
 			release_poms();
