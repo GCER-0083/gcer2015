@@ -341,10 +341,10 @@ int main()
 			release_poms();
 			
 			forward(25);
-			left(7,0);
+			left(9,0);
 			forward(25);
 			grab_poms();
-			right(7,0);
+			right(13,0);
 			if(alt==0)
 				next(s_CROSSFIELD);	
 			else
@@ -357,7 +357,7 @@ int main()
 			release_poms();
 			forward(30);
 			grab_poms();
-			forward(98);
+			forward(90);
 			next(s_PILEALT);
 		}
 		state(s_PILEALT)
@@ -443,14 +443,14 @@ int main()
 		#endif
 		state(s_PILE2)
 		{
-			forward(28);
+			forward(18);
 			release_poms();
-			left(86,ks/2);
+			right(-86,ks/2);
 			backward(100);
 			forward(25);
 			//motor(MOT_PICK,-40);
 			right(86,ks/2);
-			forward(20);
+			forward(10);
 			grab_poms();
 			backward(68);
 			forward(20);
