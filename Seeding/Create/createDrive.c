@@ -223,17 +223,17 @@ void enableDevices() {
 	enable_servos();
 	create_connect();
 	loadSounds();
-	set_servo_position(ARM_SERVO, 1805);
+	set_servo_position(ARM_SERVO, ARM_DOWN);
 	set_servo_position(SERVO_BASKET, BASKET_RETURNED);
 }
 
 void prepareDevices() {
 	set_servo_position(SERVO_BASKET, BASKET_RETURNED);
-	set_servo_position(ARM_SERVO, 1805);
+	set_servo_position(ARM_SERVO, ARM_DOWN);
 	//msleep(10000);
 	msleep(6000);
 	playPowerup();
-	msleep(7000);
+	msleep(4000);
 }
 
 void loadSounds() {

@@ -59,27 +59,53 @@ void pingPong() {
 
 
 void pingPongLow2() {
+	
 	armMove(ARM_LOW+500, 1000, 10, 100);
 	createDrive(300, 14);
 	raiseLowerArm(ARM_MEDIUM, 1000);
 	playCoin();
 	createDriveBack(100, 2);
 	armMove(ARM_HIGH, 1000, 15, -100);		//gets into position
+
 }
 
 void basketDump() {
-	createTurnRight(7);
+	/*createTurnRight(7);
 	createSquareUp(300, 2);
 	createDriveBack(100, 5);
 	raiseLowerArm(ARM_DOWN, 1000);
+	msleep(10*60*1000);
+	/*msleep(5000);
+	armMove(ARM_MEDIUM + 300, 1000, 35, -200);*/
+	set_servo_position(ARM_SERVO, ARM_DRIVE_HEIGHT);
+	createDriveBack(200, 5);
+	//createTurnRight(78);
+	createTurnRight(92);
+	driveTouch(-100);		
+	set_servo_position(ARM_SERVO, ARM_VERY_HIGH);
+	createSquareUp(300, 3);
+	createDriveBack(100, 3);
+	raiseLowerArm(ARM_DOWN, 1000);
 	msleep(5000);
-	armMove(ARM_MEDIUM + 300, 1000, 35, -200);	
+	set_servo_position(ARM_SERVO, ARM_VERY_HIGH);
+	createDriveBack(200, 35);
+	set_servo_position(ARM_SERVO, ARM_MEDIUM + 300);
+	driveTouch(-200);
+	createTurnLeft(80);
+	createSquareUp(300, 1);
+	set_servo_position(ARM_SERVO, ARM_DRIVE_HEIGHT);
+	createDriveBack(200, 5);
+	createTurnRight(78);
+	//createTurnRight(92);
+	driveTouch(-100);
+	//armMove(ARM_MEDIUM + 300, 1000, 35, -200);
 }
 
 void pingPongMedium2() {
 	//createTurnRight(20);
-	createTurnRight(13);
-	createDrive(300, 15);
+	raiseLowerArm(ARM_LOW, 1000);
+	createTurnRight(18);
+	createDrive(300, 30);
 	raiseLowerArm(ARM_HIGH, 1000);		//gets ping pong
 	playCoin();
 	msleep(500);
@@ -96,10 +122,9 @@ void pingPongHigh2() {
 	createDriveBack(100, 15);
 }
 
-
 void pingPong2() {
-	pingPongLow2();
 	basketDump();
+	pingPongLow2();
 	pingPongMedium2();
 	pingPongHigh2();
 }
@@ -130,10 +155,6 @@ void preparePingPong() {
 	//createSquareUp(500, 3.9);
 	//createSquareUp(300, 1.2);
 	squareAndSound();
-	set_servo_position(ARM_SERVO, ARM_DRIVE_HEIGHT);
-	createDriveBack(200, 5);
-	createTurnRight(78);
-	driveTouch(-100);	
 }
 
 void dump() {
@@ -164,8 +185,8 @@ void dump2() {
 
 void createMain() { //This is being programmed for the actual competion now
 	
-	pingPong();
-	preparePingPong();
+	//pingPong();
+	//preparePingPong();
 	pingPong2();
 	dump();
 	dump2();
