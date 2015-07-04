@@ -35,7 +35,7 @@ void sort_main(){set_servo_position(SERV_SORT,600);msleep(200);}
 void sort_sec(){set_servo_position(SERV_SORT,1120);}
 //void sort_mid(){set_servo_position(SERV_SORT,1090);msleep(200);}
 
-void grab_poms(){set_servo_position(SERV_GRAB,900);msleep(200);}
+void grab_poms(){set_servo_position(SERV_GRAB,700);msleep(200);}
 void release_poms(){set_servo_position(SERV_GRAB,1200);msleep(200);}
 void bump_poms(){set_servo_position(SERV_GRAB,1510);msleep(10);set_servo_position(SERV_GRAB,1410);}
 
@@ -297,7 +297,7 @@ void cam_display()
 int main()
 {
 	int alt= 0;
-	set_servo_position(SERV_GRAB,550);
+	set_servo_position(SERV_GRAB,450);
 	enable_servos();
 	sort_sec();
 	camera_open(CAM_RES);
@@ -357,12 +357,12 @@ int main()
 			release_poms();
 			forward(30);
 			grab_poms();
-			forward(90);
+			forward(80);
 			next(s_PILEALT);
 		}
 		state(s_PILEALT)
 		{
-			left(160,ks/2);
+			left(175,ks/2);
 			motor(MOT_PICK,-70);
 			backward(45);
 			cam_sort(0,50,25,12,2);
@@ -447,10 +447,11 @@ int main()
 			release_poms();
 			right(-86,ks/2);
 			backward(100);
-			forward(25);
+			forward(26);
 			//motor(MOT_PICK,-40);
-			right(86,ks/2);
-			forward(10);
+			left(-86,ks/2);
+			backward(20);
+			forward(38);
 			grab_poms();
 			backward(68);
 			forward(20);
@@ -466,9 +467,11 @@ int main()
 		{
 			backward(50);
 			forward(10);
-			right(67,0);
+			right(60,0);
 			release_poms();
-			forward(160);
+			forward(100);
+			right(7,0);
+			forward(60);
 			forward(19);
 			next(s_DUMPPOMS);
 		}
@@ -485,6 +488,9 @@ int main()
 			sweep_out();
 			msleep(1000);
 			now();
+			sort_main();
+			motor(MOT_PICK,100);
+			msleep(1000);
 			next(s_END);
 		}
 		return 0;

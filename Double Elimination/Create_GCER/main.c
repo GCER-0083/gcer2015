@@ -6,12 +6,24 @@
 
 #define SERV_ARM 2
 #define SERV_FLIP 1
+#define SERV_IGUS 0
+//self explanatory
+void igus_close()
+{
+	set_servo_position(SERV_IGUS,2047);
+}
+//self explanatory
+void igus_open()
+{
+	set_servo_position(SERV_IGUS,300);
+}
 //self explanatory
 void arm_up()
 {
 	set_servo_position(SERV_ARM,150);
 	msleep(2000);
 }
+//self explanatory
 void arm_final()
 {
 	set_servo_position(SERV_ARM,300);
@@ -28,6 +40,7 @@ void flip_open()
 	set_servo_position(SERV_FLIP,300);
 	msleep(500);
 }
+//self explanatory
 void flip_close()
 {
 	set_servo_position(SERV_FLIP,2047);
@@ -50,8 +63,10 @@ int main()
 	//init
 	//sleep(10);
 	create_connect();
+	//light_start(0);
 	arm_down();
 	set_servo_position(SERV_FLIP,2047);
+	igus_close();
 	enable_servos();
 	
 	//begin
@@ -86,9 +101,10 @@ int main()
 	msleep(300);
 	
 	create_backward(150,100);
+	igus_open();
 	create_block();
 		
-	create_left(5,0,100);
+	create_left(15,0,100);
 	create_block();
 		
 	flip_open();
