@@ -228,7 +228,7 @@ void enableDevices() {
 }
 
 void prepareDevices() {
-	set_servo_position(SERVO_BASKET, BASKET_RETURNED);
+	//set_servo_position(SERVO_BASKET, BASKET_RETURNED);
 	set_servo_position(ARM_SERVO, 1850);
 	//msleep(10000);
 	msleep(6000);
