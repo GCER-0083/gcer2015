@@ -36,6 +36,11 @@ void openClaw () {
 	msleep(500);
 }
 
+void openClawPart () {
+	set_servo_position(SERVO_OPEN_CLOSE,CLAW_OPEN-80);
+	msleep(500);
+}
+
 void closeClaw () {
 	set_servo_position(SERVO_OPEN_CLOSE,CLAW_CLOSED);
 	msleep(500);
@@ -49,6 +54,10 @@ void dumpClaw () {
 	closeClaw();
 	openClaw();
 	closeClaw();
+}
+
+void openBlockClaw () {
+	set_servo_position(SERVO_OPEN_CLOSE,600);
 }
 
 //---------Drive Actions---------//
@@ -165,6 +174,13 @@ void turnLeft(float degrees/*, float radius*/) {
 void squareUp(float speed,float time) {
 	motor(MOTOR_RIGHT,speed*-1*LEFT_FULL_POWER);
 	motor(MOTOR_LEFT,speed*-1*RIGHT_FULL_POWER);
+	msleep(time*1000);
+	ao();
+}
+
+void squareUpForward(float speed,float time) {
+	motor(MOTOR_RIGHT,speed*LEFT_FULL_POWER);
+	motor(MOTOR_LEFT,speed*RIGHT_FULL_POWER);
 	msleep(time*1000);
 	ao();
 }

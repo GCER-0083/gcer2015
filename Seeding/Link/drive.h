@@ -38,6 +38,8 @@ void lowerClaw();
 void openClaw();
 void closeClaw();
 void clawCloseBack(float distance, float speed);
+void openBlockClaw();
+void openClawPart ();
 //drive actions
 void driveForward(float distance, float speed);
 void driveBackward(float distance, float speed);
@@ -46,6 +48,7 @@ void driveUntilLine(float speed);
 void turnRight(float degrees/*, float radius*/);
 void turnLeft(float degrees/*, float radius*/);
 void squareUp(float speed,float time);
+void squareUpForward(float speed,float time);
 void driveUntilET(float speed);
 void driveUntilET2(float speed);
 void driveUntilTH(float speed);
