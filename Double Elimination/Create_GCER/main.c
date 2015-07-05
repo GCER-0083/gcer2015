@@ -10,12 +10,12 @@
 //self explanatory
 void igus_close()
 {
-	set_servo_position(SERV_IGUS,2047);
+	set_servo_position(SERV_IGUS,654);
 }
 //self explanatory
 void igus_open()
 {
-	set_servo_position(SERV_IGUS,300);
+	set_servo_position(SERV_IGUS,2047);
 }
 //self explanatory
 void arm_up()
@@ -49,11 +49,11 @@ void flip_close()
 //Picks up cubes by lifting arm slightly and flipping the cover. Should only be used in the beginning
 void serv_pick()
 {
-	set_servo_position(SERV_ARM,900);
+	set_servo_position(SERV_ARM,700);
 	msleep(2000);
 	flip_open();
 	msleep(900);
-	set_servo_position(SERV_ARM,1050);
+	set_servo_position(SERV_ARM,950);
 	msleep(900);
 	set_servo_position(SERV_ARM,1500);
 	msleep(1000);
@@ -61,15 +61,15 @@ void serv_pick()
 int main()
 {
 	//init
-	//sleep(10);
 	create_connect();
-	//light_start(0);
 	arm_down();
 	set_servo_position(SERV_FLIP,2047);
 	igus_close();
 	enable_servos();
+	light_start(LIGHT_PORT);
 	
 	//begin
+	sleep(3);
 	serv_pick();
 	msleep(2000);
 	arm_down();
@@ -88,7 +88,7 @@ int main()
 	
 	arm_up();
 	
-	create_left(22,0,200);
+	create_left(15,0,200);
 	create_block();
 	
 	flip_open();
@@ -102,9 +102,6 @@ int main()
 	
 	create_backward(150,100);
 	igus_open();
-	create_block();
-		
-	create_left(15,0,100);
 	create_block();
 		
 	flip_open();

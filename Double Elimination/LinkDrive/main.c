@@ -206,7 +206,7 @@ void cam_sort(int mainColor, int size, int discrepancy, int time, int jamDist)
 			printf("Seen Blob of Main color\n");
 			if(area>=size-discrepancy&&area<=size+discrepancy)
 			{
-				motor(MOT_PICK,SORT_SPEED/4);
+				motor(MOT_PICK,SORT_SPEED/2);
 				sort_main();
 				msleep(50);
 				motor(MOT_PICK,SORT_SPEED);
@@ -298,11 +298,11 @@ int main()
 {
 	int alt= 0;
 	set_servo_position(SERV_GRAB,450);
-	enable_servos();
 	sort_sec();
+	sweep_default();
+	enable_servos();
 	camera_open(CAM_RES);
 	multicamupdate(5);
-	sweep_default();
 	Get_Mode();
 	while(currstate!=s_END)
 	{
@@ -341,7 +341,7 @@ int main()
 			release_poms();
 			
 			forward(25);
-			left(9,0);
+			left(12,0);
 			forward(25);
 			grab_poms();
 			right(13,0);
@@ -362,7 +362,9 @@ int main()
 		}
 		state(s_PILEALT)
 		{
-			left(175,ks/2);
+			left(120,ks/2);
+			forward(20);
+			right(-57,ks/2);
 			motor(MOT_PICK,-70);
 			backward(45);
 			cam_sort(0,50,25,12,2);
@@ -443,15 +445,15 @@ int main()
 		#endif
 		state(s_PILE2)
 		{
-			forward(18);
+			forward(30);
 			release_poms();
-			right(-86,ks/2);
-			backward(100);
+			right(-86,10);
+			backward(90);
 			forward(26);
 			//motor(MOT_PICK,-40);
 			left(-86,ks/2);
-			backward(20);
-			forward(38);
+			backward(25);
+			forward(40);
 			grab_poms();
 			backward(68);
 			forward(20);
@@ -467,16 +469,20 @@ int main()
 		{
 			backward(50);
 			forward(10);
-			right(60,0);
+			right(50,0);
 			release_poms();
 			forward(100);
-			right(7,0);
+			right(15,0);
 			forward(60);
 			forward(19);
 			next(s_DUMPPOMS);
 		}
 		state(s_DUMPPOMS)
 		{
+			sweep_out2();
+			msleep(200);
+			sweep_default();
+			msleep(100);
 			sweep_out();
 			msleep(150);
 			sweep_default();
@@ -489,8 +495,7 @@ int main()
 			msleep(1000);
 			now();
 			sort_main();
-			motor(MOT_PICK,100);
-			msleep(1000);
+			cam_sort(1,50,25,10,2);
 			next(s_END);
 		}
 		return 0;
