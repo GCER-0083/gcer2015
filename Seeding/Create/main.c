@@ -2,6 +2,9 @@
 
 //main file gets run by robot calls methods in all other files
 
+//create waits at 1:40
+//LINK arrives at 1 at 0:43
+
 void playTunes() {
 	enableDevices();
 	playPowerup();
@@ -153,7 +156,7 @@ void squareAndSound() {
 	msleep(500);
 	create_stop();
 	create_drive_straight(-200);
-	msleep(4000);
+	msleep(3000);
 }
 
 void preparePingPong() {
@@ -181,7 +184,7 @@ void dump() {
 
 void dump2() {
 	raiseLowerArm(ARM_DOWN+300, 2000);
-	sleep(5); 
+	msleep(5000); 
 	raiseLowerArm(ARM_VERY_HIGH, 1000);
 	createBasketDump();
 	/*createDriveBack(100, 45);
