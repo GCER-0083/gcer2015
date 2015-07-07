@@ -75,7 +75,7 @@ void throughLane () {
 	
 	driveBackward(37, 1);
 	set_servo_position(SERVO_UP_DOWN,CLAW_UP_READY-120);
-	msleep(5000);
+	msleep(3000);
 	driveForward(16, 1);
 	openClaw();
 	closeClaw();
@@ -102,23 +102,28 @@ void cube1 () {
 	driveUntilET(1);
 	driveForward(3,1);
 	turnLeft(90);
-	driveForward(18,1);
-	turnRight(100);
+	driveForward(19,1);
+	turnRight(97);
 	//lowerClaw();
 	closeClaw();
-	driveForward(25, 1);
-	turnRight(-90);
-	squareUp(2, 1);
+	driveForward(28, 1);
+	turnRight(-70);
+	squareUp(2, 1); 
+	
+	//square up finish
+	
 	turnRight(90);
+	driveBackward(3,1);
 	lowerClaw();
 	openBlockClaw();
 	driveUntilTH(1);
+	turnRight(-10);
 	driveBackward(1.6,1);
 	openClaw();
 	driveForward(10,1);
 	closeClaw();
 	raiseClaw();
-	driveBackward(17,1);
+	driveBackward(15,1);
 	turnRight(-90);
 	squareUp(2, 1);
 }
@@ -136,21 +141,21 @@ void cube1give() {
 	
 void cube2 () {
 	driveForward(2,1);
-	turnLeft(95);
-	driveForward(52, 1);
-	turnLeft(-90);
+	turnLeft(105);
+	driveForward(55, 1);
+	turnLeft(-80);
 	squareUp(2, 1);
 	turnLeft(80);
 	lowerClaw();
-	openBlockClaw();
+	openClaw();
 	driveUntilTH(1);
-	driveBackward(2, 1);
+	driveBackward(1, 1);
 	//driveForward(10,1);
 	closeClaw();
 	raiseClaw();
-	driveBackward(30,1);
+	driveBackward(40,1);
 	turnLeft(-90);
-	squareUp(1, 1);
+	squareUp(2, 1);
 }
 	
 void back () {
@@ -161,9 +166,11 @@ void back () {
 	driveUntilET(1);
 	//driveBackward(1, 1);
 	//turnRight(100); //bump turn
+	driveForward(5,1);
 	driveUntilET2(1);
 	driveBackward(1,1);
 	turnRight(100);
+	msleep(6000);
 	squareUpForward(2,1);
 	raiseClawReady();
 	openClaw();
@@ -183,13 +190,12 @@ void LINK_main() {
 	lane1 ();
 	lane2Dump();
 	cube1();
-	//cube1give();
 	cube2();
 	back();
 }
 	
 int main() {
-	wait_for_light(1);
+	//wait_for_light(1);
 	enableAllServos();
 	LINK_main();
 //	raiseClaw();

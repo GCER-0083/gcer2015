@@ -20,7 +20,7 @@ void igus_open()
 //self explanatory
 void arm_up()
 {
-	set_servo_position(SERV_ARM,150);
+	set_servo_position(SERV_ARM,0);
 	msleep(2000);
 }
 //self explanatory
@@ -32,7 +32,7 @@ void arm_final()
 //self explanatory
 void arm_down()
 {
-	set_servo_position(SERV_ARM,1735);
+	set_servo_position(SERV_ARM,2047);
 }
 //self explanatory
 void flip_open()

@@ -57,7 +57,7 @@ void dumpClaw () {
 }
 
 void openBlockClaw () {
-	set_servo_position(SERVO_OPEN_CLOSE,600);
+	set_servo_position(SERVO_OPEN_CLOSE,500);
 }
 
 //---------Drive Actions---------//
