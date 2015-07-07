@@ -12,13 +12,14 @@ void playTunes() {
 }
 
 void pingPongHigh() {
-	//raiseLowerArm(ARM_HIGH - 200, 0.5);		//drives with raised arm
-	//createDrive(100, 26);	
-	//set_servo_position(0,760);
-	//sleep(1);
-	armMove(ARM_HIGH, 1000, 26, 325);
+	raiseLowerArm(ARM_HIGH + 300, 500);		//drives with raised arm
+	msleep(800);
+	createDrive(200, 27);	
+	set_servo_position(ARM_SERVO, ARM_HIGH);
+	//armMove(ARM_HIGH, 1000, 27, 280);
+	//armMove(ARM_HIGH, 1000, 26, 325);
 	//playCoin();
-//	raiseLowerArm(ARM_HIGH, 1);					//gets ping pong ball
+	//set_servo_position(ARM_SERVO, 0); 				//gets ping pong ball
 	msleep(500);
 	//createDriveBack(100, 8);
 	//msleep(500);
@@ -28,8 +29,8 @@ void pingPongMedium() {
 	//raiseLowerArm(ARM_MEDIUM - 200, 1);
 	//msleep(500);
 	createDriveBack(200, 2);
-	armMove(ARM_MEDIUM + 500, 1000, 17, -100);		//gets into position
-	createTurnLeft(19);
+	armMove(ARM_MEDIUM + 450, 1000, 17, -100);		//gets into position
+	createTurnLeft(17.5);
 	createDrive(300, 16);
 	raiseLowerArm(ARM_HIGH, 500);
 	playCoin();
@@ -42,7 +43,7 @@ void pingPongMedium() {
 void pingPongLow() {
 	//raiseLowerArm(ARM_LOW - 100, 1);
 	createDriveBack(175, 3);
-	armMove(ARM_LOW + 475, 1000, 9, -150);		//gets into position
+	armMove(ARM_LOW + 425, 1000, 9, -150);		//gets into position
 	msleep(500);
 	createTurnLeft(16);
 	createDrive(300, 25);
@@ -121,7 +122,8 @@ void pingPongHigh2() {
 	msleep(500);
 	createTurnRight(19);
 	armMove(ARM_HIGH, 1000, 21, 350);		//gets ping pong	
-	raiseLowerArm(ARM_HIGH, 500);		//gets ping pong
+	raiseLowerArm(ARM_HIGH, 500);
+	set_servo_position(ARM_SERVO, 0);	//gets ping pong
 	playCoin();
 	createDriveBack(100, 15);
 }
@@ -172,8 +174,8 @@ void dump() {
 	driveTouch(-400);
 	createDrive(300, 125);
 	raiseLowerArm(ARM_VERY_HIGH, 1000);
-	createTurnLeft(86);
-	createSquareUp(300, 3);
+	createTurnLeft(83);
+	createSquareUp(200, 3);
 	createDriveBack(100,2);
 	//createTurnLeft(.5);
 	createBasketDump();
@@ -202,11 +204,11 @@ void dump2() {
 void createMain() { //This is being programmed for the actual competion now
 	
 	pingPong();
-	preparePingPong();
+	/*preparePingPong();
 	pingPong2();
 	dump();
 	dump2();
-	scrape();
+	scrape();*/
 }
 
 
@@ -214,7 +216,7 @@ int main() {
 	enableDevices();
 	//createDrive(100, 10);
 	//raiseLowerArm(ARM_HIGH, 1000);
-	wait_for_light(0);
+	//wait_for_light(0);
 	shut_down_in(120);
 	prepareDevices();
 	createMain();
