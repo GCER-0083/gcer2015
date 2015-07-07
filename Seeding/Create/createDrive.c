@@ -36,6 +36,77 @@ void raiseLowerArm(int destination, int time) {
 		msleep(time / abs(destination - initAngle));
 	}
 }
+/*
+void armMoveOne(int destination, int destination2, float time, float time2, int distance, int speed) {
+	int increment;
+	int initAngle = get_servo_position(0);
+	int driveDone = 0;
+	int armDone = 0;
+	int angle = initAngle;
+	if(angle < destination) {
+		increment = 5;
+	} else {
+		increment = -5;
+	}
+	
+	//driving
+	
+	create_drive_straight(-speed);
+	if(speed > 0) {
+		set_create_distance(distance*10);
+	} else {
+		set_create_distance(0);
+	}
+		
+	while(driveDone == 0 || armDone == 0) {
+		printf("%d\n", angle);
+		if(abs(angle - destination) > 5) {
+			angle+=increment;
+			set_servo_position(ARM_SERVO, angle);
+			msleep(time / abs(destination - initAngle));
+		} else {
+			armDone = 1;
+		}
+		if(speed > 0) {
+			if(get_create_distance()*10 <= 0) {
+				create_stop();
+				set_create_distance(10); //Just make up a position more than 0 so it doesn't stop the create again, slowing the program
+				driveDone = 1;
+			}
+		} else {
+			if(get_create_distance() >= distance*10) {
+				create_stop();
+				set_create_distance(0);
+				driveDone = 1;
+			}
+		}
+	}
+	
+	while(driveDone == 0 || armDone == 0) {
+		printf("%d\n", angle);
+		if(abs(angle - destination) > 5) {
+			angle+=increment;
+			set_servo_position(ARM_SERVO, angle);
+			msleep(time / abs(destination - initAngle));
+		} else {
+			armDone = 1;
+		}
+		if(speed > 0) {
+			if(get_create_distance()*10 <= 0) {
+				create_stop();
+				set_create_distance(10); //Just make up a position more than 0 so it doesn't stop the create again, slowing the program
+				driveDone = 1;
+			}
+		} else {
+			if(get_create_distance() >= distance*10) {
+				create_stop();
+				set_create_distance(0);
+				driveDone = 1;
+			}
+		}
+	}
+}
+}*/
 
 void armMove(int destination, float time, int distance, int speed) {
 	int increment;
@@ -126,7 +197,7 @@ void createBasketDump(){
 }
 
 void createSquareUp(float speed,float time){
-	create_drive_direct(-1*speed,-1*speed);
+	create_drive_direct(-speed, -speed);
 	msleep(time*1000);
 	create_stop();
 }
@@ -223,17 +294,17 @@ void enableDevices() {
 	enable_servos();
 	create_connect();
 	loadSounds();
-	set_servo_position(ARM_SERVO, ARM_DOWN);
+	set_servo_position(ARM_SERVO, 1805);
 	set_servo_position(SERVO_BASKET, BASKET_RETURNED);
 }
 
 void prepareDevices() {
-	set_servo_position(SERVO_BASKET, BASKET_RETURNED);
-	set_servo_position(ARM_SERVO, ARM_DOWN);
-	//msleep(10000);
+	//set_servo_position(SERVO_BASKET, BASKET_RETURNED);
+	set_servo_position(ARM_SERVO, 1850);
+	//msleep(4000);
 	msleep(6000);
 	playPowerup();
-	msleep(4000);
+	msleep(7000);
 }
 
 void loadSounds() {

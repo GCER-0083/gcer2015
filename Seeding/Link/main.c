@@ -7,7 +7,7 @@ void blocks () {
 	
 	//blocks to basket
 	//raiseClawReady();
-	msleep(2000);
+	//msleep(2000);
 	raiseClaw();
 	squareUp(1, 1);
 	driveForward(39, 1);
@@ -49,7 +49,7 @@ void lane1() {
 	openClawPart ();
 	driveForward(68, 1);
 	driveUntilTH(1);
-	driveBackward(2, 1);
+	driveBackward(1.6, 1);
 	closeClaw();
 	raiseClaw();
 	driveBackward(15,1);
@@ -72,10 +72,13 @@ void throughLane () {
 	driveUntilTH(1);
 	driveBackward(1.5, 1);
 	closeClaw();
-	
-	driveBackward(37, 1);
+	raiseClaw();
+	//driveBackward(37, 1);
+	driveBackward(12, 1);
+	turnLeft(-5);
+	driveBackward(25, 1);
 	set_servo_position(SERVO_UP_DOWN,CLAW_UP_READY-120);
-	msleep(3000);
+	msleep(8000);
 	driveForward(16, 1);
 	openClaw();
 	closeClaw();
@@ -117,8 +120,8 @@ void cube1 () {
 	lowerClaw();
 	openBlockClaw();
 	driveUntilTH(1);
-	turnRight(-10);
 	driveBackward(1.6,1);
+	turnLeft(7);
 	openClaw();
 	driveForward(10,1);
 	closeClaw();
@@ -168,8 +171,8 @@ void back () {
 	//turnRight(100); //bump turn
 	driveForward(5,1);
 	driveUntilET2(1);
-	driveBackward(1,1);
-	turnRight(100);
+	//driveBackward(1,1);
+	turnRight(94);
 	msleep(6000);
 	squareUpForward(2,1);
 	raiseClawReady();
@@ -195,7 +198,8 @@ void LINK_main() {
 }
 	
 int main() {
-	//wait_for_light(1);
+	wait_for_light(1);
+	shut_down_in(119);
 	enableAllServos();
 	LINK_main();
 //	raiseClaw();
