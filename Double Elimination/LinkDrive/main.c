@@ -231,6 +231,10 @@ void cam_sort(int mainColor, int size, int discrepancy, int time, int jamDist)
 	motor(MOT_PICK,0);
 	motor(MOT_LEFT,0);
 	motor(MOT_RIGHT,0);
+	if(turn==1)
+		right(5,0);
+	else if(turn==3)
+		left(5,0);
 }
 
 //side programs
@@ -336,6 +340,7 @@ int main()
 		
 		state(s_START) // start, cross field, then pilealt and pile2, returnfield, dumpPoms and end
 		{
+			//init
 			light_start(0);
 			shut_down_in(119);
 			release_poms();
@@ -344,7 +349,7 @@ int main()
 			left(12,0);
 			forward(25);
 			grab_poms();
-			right(13,0);
+			right(12,0);
 			if(alt==0)
 				next(s_CROSSFIELD);	
 			else
@@ -453,9 +458,9 @@ int main()
 			//motor(MOT_PICK,-40);
 			left(-86,ks/2);
 			backward(25);
-			forward(40);
+			forward(46);
 			grab_poms();
-			backward(68);
+			backward(74);
 			forward(20);
 			left(88,ks/2);
 			backward(40);
