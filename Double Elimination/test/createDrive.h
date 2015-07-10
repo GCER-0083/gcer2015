@@ -17,9 +17,6 @@
 #define BUTTON_PLAY 17//TODO: finish all events.  p16 of create docs
 #define SEN_0 18
 
-#define lSpeedMult 100
-#define rSpeedMult 92
-
 //#define get_high_byte2(a) (((a)>>8)&255)
 //#define get_low_byte2(a) ((a)&255)
 
@@ -39,7 +36,6 @@ void create_right(int angle, int radius, int speed);
 void create_left(int angle, int radius, int speed);
 void create_forward(int dist, int speed);
 void create_backward(int dist, int speed);
-void create_backward_fast(int dist, int speed);
 void create_crash();
 
 void output_sen_0();

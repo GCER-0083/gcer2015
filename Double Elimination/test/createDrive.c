@@ -1,6 +1,5 @@
 #define get_high_byte2(a) (((a)>>8)&255)
 #define get_low_byte2(a) ((a)&255)
-#include "createDrive.h"
 
 void create_write_int(int integer)
 {
@@ -92,13 +91,6 @@ void create_backward(int dist, int speed)
 	create_write_byte(145);
 	create_write_int(-speed);
 	create_write_int(-speed);
-	create_wait_dist(-dist);
-}
-void create_backward_fast(int dist,int speed)
-{
-	create_write_byte(145);
-	create_write_int(-speed*lSpeedMult/100);
-	create_write_int(-speed*rSpeedMult/100);
 	create_wait_dist(-dist);
 }
 void create_crash()

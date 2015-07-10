@@ -35,8 +35,10 @@ void sort_main(){set_servo_position(SERV_SORT,600);msleep(200);}
 void sort_sec(){set_servo_position(SERV_SORT,1120);}
 //void sort_mid(){set_servo_position(SERV_SORT,1090);msleep(200);}
 
-void grab_poms(){set_servo_position(SERV_GRAB,700);msleep(200);}
-void release_poms(){set_servo_position(SERV_GRAB,1200);msleep(200);}
+void grab_poms_fast(){set_servo_position(SERV_GRAB,1271);}
+void grab_poms(){set_servo_position(SERV_GRAB,1271);msleep(200);}
+void release_poms_fast(){set_servo_position(SERV_GRAB,1782);}
+void release_poms(){set_servo_position(SERV_GRAB,1782);msleep(200);}
 void bump_poms(){set_servo_position(SERV_GRAB,1510);msleep(10);set_servo_position(SERV_GRAB,1410);}
 
 void sweep_bump(){set_servo_position(SERV_SWEEP,1450);msleep(40);}
@@ -107,13 +109,15 @@ void cam_sort(int mainColor, int size, int discrepancy, int time, int jamDist)
 	int last = get_motor_position_counter(MOT_PICK);
 	int alt = 0;
 	int turn = 0;
+	int otherColor = 0;
+	if(mainColor==0)
+		otherColor=1;
 	motor(MOT_PICK,SORT_SPEED);
 	//Sorting process
-	
-	motor(MOT_RIGHT,71);
-	motor(MOT_LEFT,71);
 	leftPos = gmpc(MOT_LEFT);
 	rightPos = gmpc(MOT_RIGHT);
+	motor(MOT_RIGHT,71);
+	motor(MOT_LEFT,71);
 	while(startTime+time>=curr_time())	//Timekeeper
 	{
 		if((double)(gmpc(MOT_LEFT)-leftPos)/CMtoBEMF>=1&&(double)(gmpc(MOT_RIGHT)-rightPos)/CMtoBEMF>=1)
@@ -126,18 +130,21 @@ void cam_sort(int mainColor, int size, int discrepancy, int time, int jamDist)
 			{
 				if(turn==0||turn==6)
 				{
+					grab_poms_fast();
 					motor(MOT_RIGHT,60);
 					rightPos=gmpc(MOT_RIGHT);
 					turn = 1;
 				}
 				else if(turn==2)
 				{
+					grab_poms_fast();
 					motor(MOT_LEFT,60);
 					leftPos=gmpc(MOT_LEFT);
 					turn = 3;
 				}
 				else
 				{
+					release_poms_fast();
 					motor(MOT_RIGHT,71);
 					motor(MOT_LEFT,71);
 					rightPos=gmpc(MOT_RIGHT);
@@ -211,6 +218,146 @@ void cam_sort(int mainColor, int size, int discrepancy, int time, int jamDist)
 				msleep(50);
 				motor(MOT_PICK,SORT_SPEED);
 				printf("sorted");
+				area = get_object_area(otherColor,0);
+				if(area>=size-discrepancy&&area<=size+discrepancy)
+				{
+					printf("2 Poms Found!! Reversing");
+					motor(MOT_PICK,-90);
+				}
+				else
+				{
+					printf("poms reverted. Resuming pickup");
+					motor(MOT_PICK,SORT_SPEED);
+				}
+				//motor(MOT_PICK,0);
+				//msleep(100);
+				//sweep_bump();
+				//motor(MOT_PICK,SORT_SPEED);
+				//sweep_default();
+			}
+			else
+			{
+				printf("Blob failed specifications\n");
+				sort_sec();
+			}
+		}
+		else
+		{
+			sort_sec();
+		}
+	}
+	motor(MOT_PICK,0);
+	motor(MOT_LEFT,0);
+	motor(MOT_RIGHT,0);
+	if(turn==1)
+		right(5,0);
+	else if(turn==3)
+		left(5,0);
+}
+//same as above, drives around.
+void static_sort(int mainColor, int size, int discrepancy, int time, int jamDist)
+{
+	release_poms();
+	//initialization process
+	if(size<0||size>100) 
+	printf("Warning: Size is out of the specified range!\n");
+	if(discrepancy<0||discrepancy>100)
+	printf("Warning: Discrepancy is out of the specified range!\n");
+	jamDist = jamDist*CMtoBEMF;
+	float lastTest = curr_time();
+	//determining resolution
+	printf("Tracking in:");
+	int res_val = 0;
+	switch(CAM_RES)
+	{
+		case LOW_RES:
+		res_val = (160*120)/100;
+		printf("Low res\n");
+		break;
+		case MED_RES:
+		res_val = (320*240)/100;
+		printf("Medium res\n");
+		break;
+		case HIGH_RES:
+		res_val = (640*480)/100;
+		printf("High res\n");
+		break;
+		default:
+		printf("Warning: Unknown res!\n");
+		break;
+	}
+	size = res_val*size;
+	discrepancy = res_val*discrepancy;
+	//camera sorting initialization
+	multicamupdate(5);
+	float startTime = curr_time();
+	int leftPos, rightPos;
+	float newTime = curr_time();
+	int area = 0;
+	int last = get_motor_position_counter(MOT_PICK);
+	int alt = 0;
+	int turn = 0;
+	int otherColor = 0;
+	if(mainColor==0)
+		otherColor=1;
+	motor(MOT_PICK,SORT_SPEED);
+	//Sorting process
+	
+	leftPos = gmpc(MOT_LEFT);
+	rightPos = gmpc(MOT_RIGHT);
+	while(startTime+time>=curr_time())	//Timekeeper
+	{
+		//failsafe
+		if(lastTest+1<=curr_time())
+		{
+			if(alt == 1)
+			{
+				//bump_poms();
+				//forward(2);
+				alt = 0;
+			}
+			else
+			{
+				alt = 1;
+				//motor(MOT_LEFT,0);
+				//motor(MOT_RIGHT,0);
+			}
+			if(jamDist>(get_motor_position_counter(MOT_PICK)-last))
+			{
+				motor(MOT_PICK,-90);
+				msleep(1000);
+				motor(MOT_PICK,SORT_SPEED);
+			}
+			last = get_motor_position_counter(MOT_PICK);
+			lastTest = curr_time();
+			sweep_bump();
+			msleep(20);
+			sweep_default();
+		}
+		//actual sorting
+		camera_update();
+		area = get_object_area(mainColor,0);
+		if(area>500)
+		{
+			printf("Seen Blob of Main color\n");
+			if(area>=size-discrepancy&&area<=size+discrepancy)
+			{
+				motor(MOT_PICK,SORT_SPEED/2);
+				sort_main();
+				msleep(50);
+				motor(MOT_PICK,SORT_SPEED);
+				printf("sorted");
+				area = get_object_area(otherColor,0);
+				if(area>=size-discrepancy&&area<=size+discrepancy)
+				{
+					printf("2 Poms Found!! Reversing");
+					motor(MOT_PICK,-90);
+				}
+				else
+				{
+					printf("poms reverted. Resuming pickup");
+					motor(MOT_PICK,SORT_SPEED);
+				}
 				//motor(MOT_PICK,0);
 				//msleep(100);
 				//sweep_bump();
@@ -301,7 +448,7 @@ void cam_display()
 int main()
 {
 	int alt= 0;
-	set_servo_position(SERV_GRAB,450);
+	set_servo_position(SERV_GRAB,950);
 	sort_sec();
 	sweep_default();
 	enable_servos();
@@ -349,7 +496,7 @@ int main()
 			left(12,0);
 			forward(25);
 			grab_poms();
-			right(12,0);
+			right(11,0);
 			if(alt==0)
 				next(s_CROSSFIELD);	
 			else
@@ -362,13 +509,16 @@ int main()
 			release_poms();
 			forward(30);
 			grab_poms();
-			forward(80);
+			forward(50);
+			release_poms();
+			forward(30);
+			grab_poms();
 			next(s_PILEALT);
 		}
 		state(s_PILEALT)
 		{
 			left(120,ks/2);
-			forward(20);
+			forward(15);
 			right(-57,ks/2);
 			motor(MOT_PICK,-70);
 			backward(45);
@@ -376,7 +526,7 @@ int main()
 			grab_poms();
 			backward(23);
 			cam_sort(0,50,25,10,2);
-			grab_poms();
+			//grab_poms();
 			backward(23);
 			next(s_PILE2);
 		}
@@ -408,6 +558,7 @@ int main()
 			left(90,0);
 			backward(40);
 			release_poms();
+			msleep(100);
 			forward(120); //return to other side of field
 			grab_poms();
 			forward(60);
@@ -450,21 +601,26 @@ int main()
 		#endif
 		state(s_PILE2)
 		{
-			forward(30);
 			release_poms();
-			right(-86,10);
+			forward(3);
+			left(86,ks/2);
+			grab_poms();
 			backward(90);
 			forward(26);
 			//motor(MOT_PICK,-40);
 			left(-86,ks/2);
 			backward(25);
+			release_poms();
 			forward(46);
 			grab_poms();
 			backward(74);
+			release_poms();
 			forward(20);
-			left(88,ks/2);
-			backward(40);
+			grab_poms();
+			right(-88,ks/2);
+			backward(35);
 			cam_sort(0,50,25,30,2);
+			msleep(750);
 			sort_main();
 			right(45,0);
 			left(45,0);
@@ -472,14 +628,15 @@ int main()
 		}
 		state(s_RETURNFIELD)
 		{
-			backward(50);
+			left(-88,ks/2);
+			backward(20);
 			forward(10);
-			right(50,0);
 			release_poms();
 			forward(100);
-			right(15,0);
+			right(5,0);
+			//right(15,0);
 			forward(60);
-			forward(19);
+			forward(30);
 			next(s_DUMPPOMS);
 		}
 		state(s_DUMPPOMS)
@@ -498,9 +655,11 @@ int main()
 			msleep(100);
 			sweep_out();
 			msleep(1000);
-			now();
 			sort_main();
-			cam_sort(1,50,25,10,2);
+			//left(-178,ks/2);
+			//forward(10);
+			static_sort(1,50,25,10,2);
+			now();
 			next(s_END);
 		}
 		return 0;
