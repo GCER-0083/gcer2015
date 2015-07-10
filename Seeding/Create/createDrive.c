@@ -290,6 +290,18 @@ void createArmSquareUp(int armDestination, float armSleepTime, float moveTime, f
 	}
 }
 
+void oneWheelLeft(float time, int speed) {
+	create_drive_direct(-1*speed,0);
+	msleep(time*1000);
+	create_stop();
+}
+
+void oneWheelRight(float time, int speed) {
+	create_drive_direct(0,-1*speed);
+	msleep(time*1000);
+	create_stop();
+}
+
 void enableDevices() {
 	enable_servos();
 	create_connect();
@@ -300,7 +312,7 @@ void enableDevices() {
 
 void prepareDevices() {
 	//set_servo_position(SERVO_BASKET, BASKET_RETURNED);
-	set_servo_position(ARM_SERVO, 1850);
+	set_servo_position(ARM_SERVO, 1300);
 	//msleep(4000);
 	msleep(6000);
 	playPowerup();

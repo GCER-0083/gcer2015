@@ -2,8 +2,8 @@
 
 #define ARM_SERVO 0
 #define SERVO_BASKET 1
-#define BASKET_DUMPED 200
-#define BASKET_RETURNED 1920
+#define BASKET_DUMPED 120
+#define BASKET_RETURNED 1800
 #define ARM_LOW 716
 #define ARM_MEDIUM 350
 #define ARM_HIGH 0
@@ -24,6 +24,8 @@ void createDrive (float speed, float distance);
 void createDriveBack (float speed, float distance);
 void createTurnLeft (int degrees);
 void createTurnRight (int degrees);
+void oneWheelLeft(float time, int speed);
+void oneWheelRight(float time, int speed);
 void createSquareUp(float speed,float time);
 
 //create main
